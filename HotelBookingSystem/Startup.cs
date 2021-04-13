@@ -13,14 +13,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Database;
+using Microsoft.AspNetCore.Http;
+using System.Web.Http;
 
 namespace HotelBookingSystem
 {
-    // Настраивает службы и конвейер запросов приложения.
-    // Указывается при сборке хоста приложения.
-    public class Startup
+    /* The Startup class is the input point to the application ASP.NET Core
+       This class configures the application, configures the services that the application will use, and installs components for processing the request or middleware.
+       When the application starts, the constructor is triggered first, then the Configure Services() method, and finally the Configure method() */
+    public class Startup 
     {
-        //Выполняет настройку приложения с помощью поставщика конфигурации.
+        // The constructor is an optional part of the Startup class. In the constructor, the initial configuration of the application is usually performed.
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,45 +31,55 @@ namespace HotelBookingSystem
 
         public IConfiguration Configuration { get; }
 
-        // Необязательный метод ConfigureServices() регистрирует сервисы, которые используются приложением. 
-        public void ConfigureServices(IServiceCollection services) // В качестве параметра метод ConfigureServices() принимает объект IServiceCollection, который представляет коллекцию сервисов в приложении.
+        // ConfigureServices method is used to configure the app's . A service is a reusable component that provides app functionality. Services are registered ConfigureServices and consumed across the app via dependency injection (DI) or ApplicationServices. 
+        // Optional. Called by the host before the Configure method to configure the app's services.
+        public void ConfigureServices(IServiceCollection services) // Configure Services() represents a collection of services in the application.
         {
-            // С помощью методов расширений этого объекта производится конфигурация приложения для использования сервисов. Все методы имеют форму Add[название_сервиса].
-            services.AddControllers();// Добавляет сервисы для контроллеров
+            // The extension methods of this object are used to configure the application to use the services. All methods have the form Add[service_name].
+            services.AddControllers();// Adds services for controllers
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "test", Version = "v1" });
             });
 
-            services.AddDbContext<HotelContext>(       options => options.UseSqlServer("name=ConnectionStrings:db"));
+            services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
+
+
+
         }
 
-        // Метод Configure устанавливает, как приложение будет обрабатывать запрос. Этот метод является обязательным.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //Для установки компонентов, которые обрабатывают запрос
+        // Is used to specify how the app responds to HTTP requests
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) // The request pipeline is configured by adding middleware components to an IApplicationBuilder instance
         {
-            // если приложение в процессе разработки
+            // If the application is in the process development
             if (env.IsDevelopment())
             {
-                // то выводим информацию об ошибке, при наличии ошибки
+                // Then there will be an output information about the error, if there is an error
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "test v1"));
+
             }
             
             app.UseHttpsRedirection();
-            
-            // добавляем возможности маршрутизации
+
+            // Routing is responsible for matching incoming HTTP requests and dispatching those requests to the app's executable endpoints
             app.UseRouting();
 
-            // Добавляет промежуточное программное обеспечение, которое включает возможности авторизации.
+            // Builds the Authorization Middleware component into the pipeline, which manages user authorization and restricts access to resources
             app.UseAuthorization();
 
-            // устанавливаем адреса, которые будут обрабатываться
+            // Allows to define routes that will be processed by the application
             app.UseEndpoints(endpoints =>
             {
-                // Добавляет конечные точки для действий контроллера
-                endpoints.MapControllers();
+                endpoints.MapGet("/api", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
+            
+
+
 
         }
     }
