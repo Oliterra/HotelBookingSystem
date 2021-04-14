@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Hotel.Database;
 using Microsoft.AspNetCore.Http;
 using System.Web.Http;
+using Hotel.Database.Entities;
 
 namespace HotelBookingSystem
 {
@@ -44,7 +45,7 @@ namespace HotelBookingSystem
 
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
 
-
+            services.AddSingleton<IHotelRepository, HotelRepository>();
 
         }
 
@@ -72,12 +73,12 @@ namespace HotelBookingSystem
             // Allows to define routes that will be processed by the application
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/api", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "api/{controller}/{action=Index}");
             });
-            
+
 
 
 

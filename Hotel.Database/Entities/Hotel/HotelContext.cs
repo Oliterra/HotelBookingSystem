@@ -7,7 +7,7 @@ namespace Hotel.Database
     {
         public HotelContext(DbContextOptions<HotelContext> options) : base(options)
         {
-            Database.EnsureCreated();   // создаем базу данных при первом обращении
+           // Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
 
         public DbSet<HotelEntity> Hotels { get; set; }

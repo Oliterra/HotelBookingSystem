@@ -15,10 +15,10 @@ namespace HotelBookingSystem.Models
         public string StarsCount { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public string Price { get; set; }
         public string Img { get; set; }
+        public bool IsFreeRooms { get; set; }
         public string RoomsCount { get; set; }
-        public string RoomType { get; set; }
+        public string FreeRoomsCount { get; set; }
         public bool IsFavorite { get; set; }
 
     }
