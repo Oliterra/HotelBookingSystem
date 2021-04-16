@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Hotel.Database.Entities
+namespace Hotel.Database.Interfaces
 {
-    public class RoomGuestsEntity
+    class IPaymentTypeEntity
     {
     }
 }

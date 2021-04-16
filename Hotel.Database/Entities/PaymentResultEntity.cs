@@ -6,14 +6,21 @@ namespace Hotel.Database.Entities
 {
     public class PaymentResultEntity
     {
-        public int PaymentResultId { get; set;}
-        public int RoomPrice { get; set; }
+        public int Id { get; set; }
+
         public int BookingId { get; set; }
+
         public int PaymentTypeId { get; set; }
-        public string PaymentDate { get; set; }
-        public string PaymentTime { get; set; }
-        public BookingEntity Booking { get; set; }
-        public PaymentTypeEntity PaymentType { get; set; }
+
+        public DateTime PaymentDate { get; set; }
+
+        public TimeSpan PaymentTime { get; set; }
+
+        public int PaymentSum { get; set; }
+
+        public virtual BookingEntity Booking { get; set; }
+
+        public virtual PaymentTypeEntity PaymentType { get; set; }
     }
 }
    

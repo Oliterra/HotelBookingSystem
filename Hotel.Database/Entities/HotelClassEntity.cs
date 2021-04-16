@@ -15,8 +15,7 @@ namespace Hotel.Database.Entities
 
         public string LongDescription { get; set; }
 
-        public ICollection<HotelEntity> Hotels { get; set; }
-
+        public ICollection<HotelEntity> Hotel { get; set; }
     }
 }
 

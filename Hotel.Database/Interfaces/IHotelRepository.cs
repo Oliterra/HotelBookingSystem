@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using HotelBookingSystem.Models;
 
 namespace Hotel.Database.Entities
 {
-    public interface IHotelRepository // инкапсулирует уровень данных и содержит логику для извлечения данных и направлениях их к модели
+    public interface IHotelRepository 
     {
-        IEnumerable<HotelEntity> Get();
-        HotelEntity Get(int id);
-        void Create(HotelEntity hotel);
-        void Update(HotelEntity hotel);
-        HotelEntity Delete(int id);
+        IQueryable<HotelEntity> GetQueryable(); //Объект IQueryable предоставляет удаленный доступ к базе данных и позволяет перемещаться по данным как от начала до конца, так и в обратном порядке
+        HotelEntity GetHotelById(int id);
+        void AddHotel(HotelEntity hotel);
+        void UpdateHotel(HotelEntity hotel);
+        void DeleteHotel(int id);
     }
 }

@@ -4,14 +4,12 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class PaymentTypeEntity
+    public class HotelCityEntity
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
-        public virtual ICollection<PaymentTypeEntity> PaymentType { get; set; }
+        public virtual ICollection<HotelStreetEntity> Street { get; set; }
     }
 }

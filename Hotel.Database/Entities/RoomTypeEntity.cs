@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class PaymentTypeEntity
+    public class RoomTypeEntity
     {
         public int Id { get; set; }
 
@@ -12,6 +12,8 @@ namespace Hotel.Database.Entities
 
         public string Description { get; set; }
 
-        public virtual ICollection<PaymentTypeEntity> PaymentType { get; set; }
+        public int Cost { get; set; }
+
+        public virtual ICollection<RoomEntity> Room { get; set; }
     }
 }

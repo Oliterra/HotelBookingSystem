@@ -1,14 +1,11 @@
-﻿using HotelBookingSystem.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Hotel.Database.Interfaces;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Text;
 
-namespace Hotel.Database.Entities
+namespace Hotel.Database.Repositories
 {
-    public class HotelRepository : IHotelRepository
+    class RoomRepository : IRoomRepository
     {
         private readonly HotelContext Context;
         public HotelRepository(HotelContext context)
@@ -58,7 +55,7 @@ namespace Hotel.Database.Entities
 
         public void DeleteHotel(int id)
         {
-            try 
+            try
             {
                 Context.Hotels.Remove(Context.Hotels.Where(x => x.Id == id).FirstOrDefault());
                 Context.SaveChanges();

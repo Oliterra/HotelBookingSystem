@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class BookingStatusEntity
+    class BookingStatusEntity
     {
     }
 }

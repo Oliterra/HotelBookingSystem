@@ -7,36 +7,30 @@ namespace Hotel.Database.Entities
 {
     public class BookingEntity
     {
-        public int BookingId { get; set; }
+        public int Id { get; set; }
 
         public int UserId { get; set; }
 
-        public int BookedHotelId { get; set; }
+        public int RoomId { get; set; }
 
-        public int BookedRoomId { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public string ArrivalDate { get; set; } // посмотреть формат для даты
+        public TimeSpan StartTime { get; set; }
 
-        public string ArrivalTime { get; set; } // посмотреть формат для времени 
+        public DateTime EndDate { get; set; }
 
-        public string DepartureDate { get; set; } // посмотреть формат для даты
+        public TimeSpan EndTime { get; set; }
 
-        public string DepartureTime { get; set; } // посмотреть формат для времени
+        public int BookingStatusId { get; set; }
 
-        public bool BookingStatusId { get; set; }
+        public virtual BookingStatusEntity BookingStatus { get; set; }
 
-        public BookingStatusEntity BookingStatus { get; set; }
+        public virtual RoomEntity Room { get; set; }
 
-        public HotelEntity BookedHotel { get; set; }
+        public virtual ICollection<BookingAdditionalServiceEntity> BookingAdditionalService { get; set; }
 
-        public HotelRoomEntity BookedRoom { get; set; }
+        public virtual ICollection<BookingAssignedUserEntity> BookingAssignedPerson { get; set; }
 
-        public ClientEntity Client { get; set; }
-
-        public ICollection<AdditionalServicesEntity> AdditionalServices { get; set; }
-
-        public ICollection<RoomGuestsEntity> RoomGuests { get; set; }
-
-        public ICollection<PaymentTypeEntity> PaymentType { get; set; }
+        public virtual ICollection<PaymentResultEntity> PaymentResult { get; set; }
     }
 } 
