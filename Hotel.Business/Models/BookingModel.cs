@@ -5,7 +5,7 @@ using HotelBookingSystem.Models;
 
 namespace Hotel.Database.Entities
 {
-    public class BookingEntity
+    public class BookingModel
     {
         public Guid Id { get; set; }
 
@@ -21,14 +21,12 @@ namespace Hotel.Database.Entities
 
         public TimeSpan EndTime { get; set; }
 
-        public bool BookingStatus { get; set; }
+        public RoomModel Room { get; set; }
 
-        public RoomEntity Room { get; set; }
+        public ICollection<BookingAdditionalServiceModel> BookingAdditionalService { get; set; }
 
-        public ICollection<BookingAdditionalServiceEntity> BookingAdditionalService { get; set; }
+        public ICollection<BookingAssignedUserModel> BookingAssignedPerson { get; set; }
 
-        public ICollection<BookingAssignedUserEntity> BookingAssignedPerson { get; set; }
-
-        public ICollection<PaymentResultEntity> PaymentResult { get; set; }
+        public ICollection<PaymentResultModel> PaymentResult { get; set; }
     }
 } 

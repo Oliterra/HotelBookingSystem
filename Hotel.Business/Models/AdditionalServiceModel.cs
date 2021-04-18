@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Hotel.Database.Entities
 {
-    public class AdditionalServiceEntity
+    public class AdditionalServiceModel
     {
         public Guid Id { get; set; }
 
@@ -15,6 +15,8 @@ namespace Hotel.Database.Entities
 
         public Guid AdditionalServiceTypeId { get; set; }
 
-        public AdditionalServiceTypeEntity AdditionalServiceType { get; set; }
+        public AdditionalServiceTypeModel AdditionalServiceType { get; set; }
+
+        public ICollection<BookingAdditionalServiceModel> BookingAdditionalService { get; set; }
     }
 }

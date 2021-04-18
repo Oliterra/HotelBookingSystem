@@ -1,67 +1,72 @@
-﻿using HotelBookingSystem.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Concurrent;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Text;
+using Database.Interfaces;
+using Hotel.Database;
+using HotelBookingSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Hotel.Database.Entities
+namespace Database.Repositories
 {
-    public class HotelRepository : IHotelRepository
+    class HotelRepository : IHotelRepository
     {
-        private readonly HotelContext Context;
+        private readonly HotelContext _context;
+
         public HotelRepository(HotelContext context)
         {
-            Context = context;
+            _context = context;
         }
+
+        public void Add(HotelEntity hotel)
+        {
+            try
+            {
+                _context.Hotels.Add(hotel);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Delete(Guid hotelId)
+        {
+            try
+            {
+                _context.Hotels.Remove(_context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault());
+                _context.SaveChanges();
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public HotelEntity GetById(Guid hotelId)
+        {
+            try
+            {
+                return _context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault();
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public IQueryable<HotelEntity> GetQueryable()
         {
-            return Context.Hotels;
-        }
-        public HotelEntity GetHotelById(int id)
-        {
-            try
-            {
-                return Context.Hotels.Where(x => x.Id == id).FirstOrDefault();
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
+            return _context.Hotels;
         }
 
-        public void AddHotel(HotelEntity hotel)
+        public void Update(HotelEntity hotel)
         {
             try
             {
-                Context.Hotels.Add(hotel);
-                Context.SaveChanges();
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-        }
-        public void UpdateHotel(HotelEntity hotel)
-        {
-            try
-            {
-                Context.Entry(hotel).State = EntityState.Modified;
-                Context.SaveChanges();
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void DeleteHotel(int id)
-        {
-            try 
-            {
-                Context.Hotels.Remove(Context.Hotels.Where(x => x.Id == id).FirstOrDefault());
-                Context.SaveChanges();
+                _context.Entry(hotel).State = EntityState.Modified;
+                _context.SaveChanges();
             }
             catch
             {

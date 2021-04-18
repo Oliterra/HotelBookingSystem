@@ -6,12 +6,10 @@ namespace Hotel.Database.Entities
 {
     public class BookingAssignedUserEntity
     {
-        public int BookingId { get; set; }
+        public Guid BookingId { get; set; }
 
-        public int PersonId { get; set; }
+        public BookingEntity Booking { get; set; }
 
-        public virtual BookingEntity Booking { get; set; }
-
-        public virtual UserEntity User { get; set; }
+        public UserEntity User { get; set; }
     }
 }

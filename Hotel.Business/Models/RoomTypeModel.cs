@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class AdditionalServiceEntity
+    public class RoomTypeModel
     {
         public Guid Id { get; set; }
 
@@ -13,8 +14,6 @@ namespace Hotel.Database.Entities
 
         public int Cost { get; set; }
 
-        public Guid AdditionalServiceTypeId { get; set; }
-
-        public AdditionalServiceTypeEntity AdditionalServiceType { get; set; }
+        public ICollection<RoomModel> Room { get; set; }
     }
 }

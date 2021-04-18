@@ -6,12 +6,12 @@ namespace Hotel.Database.Entities
 {
     public class PaymentTypeEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public virtual ICollection<PaymentTypeEntity> PaymentType { get; set; }
+        public ICollection<PaymentResultEntity> PaymentResult { get; set; }
     }
 }

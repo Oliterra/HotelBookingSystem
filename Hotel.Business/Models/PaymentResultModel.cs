@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class PaymentResultEntity
+    public class PaymentResultModel
     {
         public Guid Id { get; set; }
 
@@ -18,9 +18,9 @@ namespace Hotel.Database.Entities
 
         public int PaymentSum { get; set; }
 
-        public BookingEntity Booking { get; set; }
+        public BookingModel Booking { get; set; }
 
-        public PaymentTypeEntity PaymentType { get; set; }
+        public PaymentTypeModel PaymentType { get; set; }
     }
 }
    

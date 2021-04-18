@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    public class BookingAdditionalServiceEntity
+    public class BookingAdditionalServiceModel
     {
         public Guid Id { get; set; }
 
@@ -20,8 +20,8 @@ namespace Hotel.Database.Entities
 
         public TimeSpan EndTime { get; set; }
 
-        public AdditionalServiceEntity AdditionalService { get; set; }
+        public AdditionalServiceModel AdditionalService { get; set; }
 
-        public BookingEntity Booking { get; set; }
+        public BookingModel Booking { get; set; }
     }
 }

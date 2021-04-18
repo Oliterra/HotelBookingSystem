@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Hotel.Database.Entities
 {
-    class BookingStatusEntity
+    public class RoomImageModel
     {
+        public Guid Id { get; set; }
+
+        public string Image { get; set; }
     }
 }

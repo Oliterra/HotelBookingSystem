@@ -9,20 +9,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database.Repositories
 {
-    class RoomRepository : IRoomRepository
+    class RoomImageRepository : IRoomImageRepository
     {
         private readonly HotelContext _context;
 
-        public RoomRepository(HotelContext context)
+        public RoomImageRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public void Add(RoomEntity room)
+        public void Add(RoomImageEntity roomImage)
         {
             try
             {
-                _context.Rooms.Add(room);
+                _context.RoomImages.Add(roomImage);
                 _context.SaveChanges();
             }
             catch
@@ -31,11 +31,11 @@ namespace Database.Repositories
             }
         }
 
-        public void Delete(Guid roomId)
+        public void Delete(Guid roomImageId)
         {
             try
             {
-                _context.Rooms.Remove(_context.Rooms.Where(x => x.Id == roomId).FirstOrDefault());
+                _context.RoomImages.Remove(_context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault());
                 _context.SaveChanges();
             }
             catch
@@ -44,11 +44,11 @@ namespace Database.Repositories
             }
         }
 
-        public RoomEntity GetById(Guid roomId)
+        public RoomImageEntity GetById(Guid roomImageId)
         {
             try
             {
-                return _context.Rooms.Where(x => x.Id == roomId).FirstOrDefault();
+                return _context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault();
             }
             catch
             {
@@ -56,16 +56,16 @@ namespace Database.Repositories
             }
         }
 
-        public IQueryable<RoomEntity> GetQueryable()
+        public IQueryable<RoomImageEntity> GetQueryable()
         {
-            return _context.Rooms;
+            return _context.RoomImages;
         }
 
-        public void Update(RoomEntity room)
+        public void Update(RoomImageEntity roomImage)
         {
             try
             {
-                _context.Entry(room).State = EntityState.Modified;
+                _context.Entry(roomImage).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch

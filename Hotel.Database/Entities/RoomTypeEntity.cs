@@ -6,7 +6,7 @@ namespace Hotel.Database.Entities
 {
     public class RoomTypeEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -14,6 +14,6 @@ namespace Hotel.Database.Entities
 
         public int Cost { get; set; }
 
-        public virtual ICollection<RoomEntity> Room { get; set; }
+        public ICollection<RoomEntity> Room { get; set; }
     }
 }

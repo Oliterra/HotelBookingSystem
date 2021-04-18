@@ -6,10 +6,8 @@ namespace Hotel.Database.Entities
 {
     public class RoomImageEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Image { get; set; }
-
-        public virtual ICollection<RoomInfoEntity> RoomInfo { get; set; }
     }
 }

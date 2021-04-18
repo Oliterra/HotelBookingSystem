@@ -5,7 +5,7 @@ using HotelBookingSystem.Models;
 
 namespace Hotel.Database.Entities
 {
-    public class HotelClassEntity
+    public class HotelClassModel
     {
         public Guid Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace Hotel.Database.Entities
 
         public string LongDescription { get; set; }
 
-        public ICollection<HotelEntity> Hotel { get; set; }
+        public ICollection<HotelModel> Hotel { get; set; }
     }
 }
 

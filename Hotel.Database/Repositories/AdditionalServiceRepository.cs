@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Database.Interfaces;
+﻿using Database.Interfaces;
 using Hotel.Database;
 using Hotel.Database.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Database.Repositories
 {
-    class RoomRepository : IRoomRepository
+    class AdditionalServiceRepository : IAdditionalServiceRepository
     {
         private readonly HotelContext _context;
 
-        public RoomRepository(HotelContext context)
+        public AdditionalServiceRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public void Add(RoomEntity room)
+        public void Add(AdditionalServiceEntity addServ)
         {
             try
             {
-                _context.Rooms.Add(room);
+                _context.AdditionalServices.Add(addServ);
                 _context.SaveChanges();
             }
             catch
@@ -31,11 +31,11 @@ namespace Database.Repositories
             }
         }
 
-        public void Delete(Guid roomId)
+        public void Delete(Guid addServId)
         {
             try
             {
-                _context.Rooms.Remove(_context.Rooms.Where(x => x.Id == roomId).FirstOrDefault());
+                _context.AdditionalServices.Remove(_context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault());
                 _context.SaveChanges();
             }
             catch
@@ -44,11 +44,11 @@ namespace Database.Repositories
             }
         }
 
-        public RoomEntity GetById(Guid roomId)
+        public AdditionalServiceEntity GetById(Guid addServId)
         {
             try
             {
-                return _context.Rooms.Where(x => x.Id == roomId).FirstOrDefault();
+                return _context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault();
             }
             catch
             {
@@ -56,16 +56,16 @@ namespace Database.Repositories
             }
         }
 
-        public IQueryable<RoomEntity> GetQueryable()
+        public IQueryable<AdditionalServiceEntity> GetQueryable()
         {
-            return _context.Rooms;
+            return _context.AdditionalServices;
         }
 
-        public void Update(RoomEntity room)
+        public void Update(AdditionalServiceEntity addServ)
         {
             try
             {
-                _context.Entry(room).State = EntityState.Modified;
+                _context.Entry(addServ).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch

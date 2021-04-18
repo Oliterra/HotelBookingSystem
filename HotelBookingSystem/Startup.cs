@@ -37,10 +37,6 @@ namespace HotelBookingSystem
             });
 
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
-            services.AddDbContext<RoomContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
-
-            services.AddSingleton<IHotelRepository, HotelRepository>();
-
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 

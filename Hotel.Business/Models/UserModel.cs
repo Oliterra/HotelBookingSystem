@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Hotel.Database.Entities
 {
-    public class UserEntity
+    public class UserModel
     {
         public Guid Id { get; set; }
 
@@ -17,6 +17,6 @@ namespace Hotel.Database.Entities
 
         public long Phone { get; set; }
 
-        public ICollection<BookingAssignedUserEntity> BookingAssignedUserPerson { get; set; }
+        public ICollection<BookingAssignedUserModel> BookingAssignedUserPerson { get; set; }
     }
 }

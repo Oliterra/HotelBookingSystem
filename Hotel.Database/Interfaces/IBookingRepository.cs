@@ -1,4 +1,5 @@
 ﻿using Hotel.Database.Entities;
+using HotelBookingSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +7,12 @@ using System.Text;
 
 namespace Hotel.Database.Interfaces
 {
-    class IBookingRepository
+    interface IBookingRepository
     {
-        IQueryable<RoomEntity> GetQueryable();
-        RoomEntity GetRoomById(int id);
-        void AddRoom(RoomEntity room);
-        void UpdateRoom(RoomEntity room);
-        void DeleteRoom(int id);
-        void IsAvailable(int id);
+        IQueryable<BookingEntity> GetQueryable();
+        BookingEntity GetById(Guid bookingId);
+        void Add(BookingEntity booking);
+        void Update(BookingEntity booking);
+        void Delete(Guid bookingId);
     }
 }

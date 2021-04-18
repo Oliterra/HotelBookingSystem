@@ -6,7 +6,7 @@ using Hotel.Database.Entities;
 
 namespace HotelBookingSystem.Models
 {
-    public class HotelEntity
+    public class HotelModel
     {
         public Guid Id { get; set; }
 
@@ -18,9 +18,7 @@ namespace HotelBookingSystem.Models
 
         public string Country { get; set; }
 
-        public string City { get; set; }
-
-        public string Street { get; set; }
+        public string Address { get; set; }
 
         public string BuildingNumber { get; set; }
 
@@ -28,10 +26,10 @@ namespace HotelBookingSystem.Models
 
         public bool IsFreeRooms { get; set; }
 
-        public HotelClassEntity HotelClass { get; set; }
+        public HotelClassModel HotelClass { get; set; }
 
-        public HotelImageEntity HotelImage { get; set; }
+        public HotelImageModel HotelImage { get; set; }
 
-        public ICollection<BookingEntity> Booking { get; set; }
+        public ICollection<BookingModel> Booking { get; set; }
     }
 }

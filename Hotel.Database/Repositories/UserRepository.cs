@@ -9,20 +9,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database.Repositories
 {
-    class RoomRepository : IRoomRepository
+    class UserRepository : IUserRepository
     {
         private readonly HotelContext _context;
 
-        public RoomRepository(HotelContext context)
+        public UserRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public void Add(RoomEntity room)
+        public void Add(UserEntity user)
         {
             try
             {
-                _context.Rooms.Add(room);
+                _context.Users.Add(user);
                 _context.SaveChanges();
             }
             catch
@@ -31,11 +31,11 @@ namespace Database.Repositories
             }
         }
 
-        public void Delete(Guid roomId)
+        public void Delete(Guid userId)
         {
             try
             {
-                _context.Rooms.Remove(_context.Rooms.Where(x => x.Id == roomId).FirstOrDefault());
+                _context.Users.Remove(_context.Users.Where(x => x.Id == userId).FirstOrDefault());
                 _context.SaveChanges();
             }
             catch
@@ -44,11 +44,11 @@ namespace Database.Repositories
             }
         }
 
-        public RoomEntity GetById(Guid roomId)
+        public UserEntity GetById(Guid userId)
         {
             try
             {
-                return _context.Rooms.Where(x => x.Id == roomId).FirstOrDefault();
+                return _context.Users.Where(x => x.Id == userId).FirstOrDefault();
             }
             catch
             {
@@ -56,16 +56,16 @@ namespace Database.Repositories
             }
         }
 
-        public IQueryable<RoomEntity> GetQueryable()
+        public IQueryable<UserEntity> GetQueryable()
         {
-            return _context.Rooms;
+            return _context.Users;
         }
 
-        public void Update(RoomEntity room)
+        public void Update(UserEntity user)
         {
             try
             {
-                _context.Entry(room).State = EntityState.Modified;
+                _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch
