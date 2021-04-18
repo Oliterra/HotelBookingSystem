@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Database.Interfaces
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         IQueryable<UserEntity> GetQueryable();
         UserEntity GetById(Guid userId);
