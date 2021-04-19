@@ -9,9 +9,13 @@ namespace Database.Interfaces
     public interface IHotelImageRepository
     {
         IQueryable<HotelImageEntity> GetQueryable();
+
         HotelImageEntity GetById(Guid hotelImageId);
-        void Add(HotelImageEntity hotelImage);
-        void Update(HotelImageEntity hotelImage);
-        void Delete(Guid hotelImageId);
+
+        bool Add(HotelImageEntity hotelImage);
+
+        bool Update(HotelImageEntity hotelImage);
+
+        bool Delete(Guid hotelImageId);
     }
 }

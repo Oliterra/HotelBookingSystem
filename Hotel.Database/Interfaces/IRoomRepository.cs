@@ -9,9 +9,13 @@ namespace Database.Interfaces
     public interface IRoomRepository
     {
         IQueryable<RoomEntity> GetQueryable();
+
         RoomEntity GetById(Guid roomId);
-        void Add(RoomEntity room);
-        void Update(RoomEntity room);
-        void Delete(Guid roomId);
+
+        bool Add(RoomEntity room);
+
+        bool Update(RoomEntity room);
+
+        bool Delete(Guid roomId);
     }
 }

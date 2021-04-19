@@ -18,29 +18,31 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public void Add(HotelImageEntity hotelImage)
+        public bool Add(HotelImageEntity hotelImage)
         {
             try
             {
                 _context.HotelImages.Add(hotelImage);
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw; 
             }
         }
 
-        public void Delete(Guid hotelImageId)
+        public bool Delete(Guid hotelImageId)
         {
             try
             {
                 _context.HotelImages.Remove(_context.HotelImages.Where(x => x.Id == hotelImageId).FirstOrDefault());
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
@@ -61,16 +63,17 @@ namespace Database.Repositories
             return _context.HotelImages;
         }
 
-        public void Update(HotelImageEntity hotelImage)
+        public bool Update(HotelImageEntity hotelImage)
         {
             try
             {
                 _context.Entry(hotelImage).State = EntityState.Modified;
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }

@@ -37,6 +37,7 @@ namespace HotelBookingSystem
             });
 
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
+            services.AddControllers();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
@@ -57,6 +58,7 @@ namespace HotelBookingSystem
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",

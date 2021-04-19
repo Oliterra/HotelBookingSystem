@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Hotel.Database.Entities
+namespace Business.Models
 {
     public class RoomModel
     {
@@ -10,17 +10,33 @@ namespace Hotel.Database.Entities
 
         public Guid HotelId { get; set; }
 
-        public byte Floor { get; set; }
+        public int Floor { get; set; }
 
-        public short Number { get; set; }
+        public int Number { get; set; }
 
         public Guid RoomTypeId { get; set; }
 
+        public Guid RoomImageId { get; set; }
+
         public int Price { get; set; }
 
-        public HotelModel Hotel { get; set; }
+        public byte RoomsAmount { get; set; }
 
-        public RoomTypeModel RoomType { get; set; }
+        public double SquareMeters { get; set; }
+
+        public bool Kitchen { get; set; }
+
+        public bool Bathroom { get; set; }
+
+        public bool Conditioner { get; set; }
+
+        public bool Balcony { get; set; }
+
+        public bool Tv { get; set; }
+
+        public bool Fridge { get; set; }
+
+        public bool WashingMachine { get; set; }
 
         public ICollection<BookingModel> Booking { get; set; }
     }

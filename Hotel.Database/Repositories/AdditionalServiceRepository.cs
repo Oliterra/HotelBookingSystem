@@ -18,29 +18,31 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public void Add(AdditionalServiceEntity addServ)
+        public bool Add(AdditionalServiceEntity addServ)
         {
             try
             {
                 _context.AdditionalServices.Add(addServ);
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
-        public void Delete(Guid addServId)
+        public bool Delete(Guid addServId)
         {
             try
             {
                 _context.AdditionalServices.Remove(_context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault());
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
@@ -52,7 +54,7 @@ namespace Database.Repositories
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
@@ -61,16 +63,17 @@ namespace Database.Repositories
             return _context.AdditionalServices;
         }
 
-        public void Update(AdditionalServiceEntity addServ)
+        public bool Update(AdditionalServiceEntity addServ)
         {
             try
             {
                 _context.Entry(addServ).State = EntityState.Modified;
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }

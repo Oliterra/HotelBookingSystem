@@ -18,9 +18,7 @@ namespace HotelBookingSystem.Models
 
         public string Country { get; set; }
 
-        public string City { get; set; }
-
-        public string Street { get; set; }
+        public string Address { get; set; }
 
         public string BuildingNumber { get; set; }
 
@@ -30,7 +28,7 @@ namespace HotelBookingSystem.Models
 
         public HotelClassEntity HotelClass { get; set; }
 
-        public HotelImageEntity HotelImage { get; set; }
+        public HotelClassEntity HotelImage { get; set; }
 
         public ICollection<BookingEntity> Booking { get; set; }
     }

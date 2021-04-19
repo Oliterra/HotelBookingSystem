@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using HotelBookingSystem.Models;
 
-namespace Hotel.Database.Entities
+namespace Business.Models
 {
     public class HotelClassModel
     {

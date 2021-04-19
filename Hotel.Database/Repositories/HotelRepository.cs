@@ -18,29 +18,31 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public void Add(HotelEntity hotel)
+        public bool Add(HotelEntity hotel)
         {
             try
             {
                 _context.Hotels.Add(hotel);
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
-        public void Delete(Guid hotelId)
+        public bool Delete(Guid hotelId)
         {
             try
             {
                 _context.Hotels.Remove(_context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault());
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
@@ -61,16 +63,17 @@ namespace Database.Repositories
             return _context.Hotels;
         }
 
-        public void Update(HotelEntity hotel)
+        public bool Update(HotelEntity hotel)
         {
             try
             {
                 _context.Entry(hotel).State = EntityState.Modified;
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }

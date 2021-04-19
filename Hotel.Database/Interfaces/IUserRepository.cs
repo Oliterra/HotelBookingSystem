@@ -9,9 +9,13 @@ namespace Database.Interfaces
     public interface IUserRepository
     {
         IQueryable<UserEntity> GetQueryable();
+
         UserEntity GetById(Guid userId);
-        void Add(UserEntity user);
-        void Update(UserEntity user);
-        void Delete(Guid userId);
+
+        bool Add(UserEntity user);
+
+        bool Update(UserEntity user);
+
+        bool Delete(Guid userId);
     }
 }

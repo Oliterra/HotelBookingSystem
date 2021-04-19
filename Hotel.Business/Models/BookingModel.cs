@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using HotelBookingSystem.Models;
 
-namespace Hotel.Database.Entities
+namespace Business.Models
 {
     public class BookingModel
     {
@@ -29,4 +28,4 @@ namespace Hotel.Database.Entities
 
         public ICollection<PaymentResultModel> PaymentResult { get; set; }
     }
-} 
+}

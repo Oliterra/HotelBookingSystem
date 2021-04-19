@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Hotel.Database.Entities
+namespace Business.Models
 {
     public class UserModel
     {

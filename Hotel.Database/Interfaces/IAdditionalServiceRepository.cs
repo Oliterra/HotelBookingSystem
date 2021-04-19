@@ -9,9 +9,13 @@ namespace Database.Interfaces
     public interface IAdditionalServiceRepository
     {
         IQueryable<AdditionalServiceEntity> GetQueryable();
+
         AdditionalServiceEntity GetById(Guid addServId);
-        void Add(AdditionalServiceEntity addServ);
-        void Update(AdditionalServiceEntity addServ);
-        void Delete(Guid addServId);
+
+        bool Add(AdditionalServiceEntity addServ);
+
+        bool Update(AdditionalServiceEntity addServ);
+
+        bool Delete(Guid addServId);
     }
 }

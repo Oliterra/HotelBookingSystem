@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Database.Entities;
 
-namespace HotelBookingSystem.Models
+namespace Business.Models
 {
     public class HotelModel
     {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Hotel.Database.Entities
-{
+namespace Business.Models
+{ 
     public class BookingAdditionalServiceModel
     {
         public Guid Id { get; set; }

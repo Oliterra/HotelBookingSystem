@@ -18,29 +18,31 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public void Add(UserEntity user)
+        public bool Add(UserEntity user)
         {
             try
             {
                 _context.Users.Add(user);
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
-        public void Delete(Guid userId)
+        public bool Delete(Guid userId)
         {
             try
             {
                 _context.Users.Remove(_context.Users.Where(x => x.Id == userId).FirstOrDefault());
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
@@ -61,16 +63,17 @@ namespace Database.Repositories
             return _context.Users;
         }
 
-        public void Update(UserEntity user)
+        public bool Update(UserEntity user)
         {
             try
             {
                 _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }

@@ -18,42 +18,37 @@ namespace Database.Repositories
             _context = context;
         }
 
-        public void Add(RoomEntity room)
+        public bool Add(RoomEntity room)
         {
             try
             {
                 _context.Rooms.Add(room);
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
-        public void Delete(Guid roomId)
+        public bool Delete(Guid roomId)
         {
             try
             {
                 _context.Rooms.Remove(_context.Rooms.Where(x => x.Id == roomId).FirstOrDefault());
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
         public RoomEntity GetById(Guid roomId)
-        {
-            try
-            {
-                return _context.Rooms.Where(x => x.Id == roomId).FirstOrDefault();
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
+        { 
+            return _context.Rooms.Where(x => x.Id == roomId).FirstOrDefault();
         }
 
         public IQueryable<RoomEntity> GetQueryable()
@@ -61,16 +56,17 @@ namespace Database.Repositories
             return _context.Rooms;
         }
 
-        public void Update(RoomEntity room)
+        public bool Update(RoomEntity room)
         {
             try
             {
                 _context.Entry(room).State = EntityState.Modified;
                 _context.SaveChanges();
+                return true;
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }
