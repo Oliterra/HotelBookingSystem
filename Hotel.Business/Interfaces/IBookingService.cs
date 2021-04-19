@@ -7,9 +7,8 @@ namespace Business.Interfaces
 {
     public interface IBookingService
     {
-        BookingModel GetBooking(Guid bookingId);
-        void AddBooking(BookingModel booking);
-        void UpdateBooking(BookingModel booking);
-        void DeleteBooking(Guid bookingId);
+        string AddBooking(BookingModel booking);
+        IList<BookingModel> GetByUserId(Guid id);
+
     }
 }

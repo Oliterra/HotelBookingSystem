@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Database.Interfaces
 {
-    public interface IRoomRepository
+    interface IRoomRepository
     {
         IQueryable<RoomEntity> GetQueryable();
         RoomEntity GetById(Guid roomId);

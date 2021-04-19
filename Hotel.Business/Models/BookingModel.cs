@@ -13,13 +13,13 @@ namespace Hotel.Database.Entities
 
         public Guid RoomId { get; set; }
 
-        public DateTime ArrivalDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public TimeSpan ArrivalTime { get; set; }
+        public TimeSpan StartTime { get; set; }
 
-        public DateTime DepartureDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public TimeSpan DepartureTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
         public RoomModel Room { get; set; }
 

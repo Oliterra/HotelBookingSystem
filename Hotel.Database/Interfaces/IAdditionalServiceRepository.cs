@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Database.Interfaces
 {
-    public interface IAdditionalServiceRepository
+    interface IAdditionalServiceRepository
     {
         IQueryable<AdditionalServiceEntity> GetQueryable();
         AdditionalServiceEntity GetById(Guid addServId);

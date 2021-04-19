@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Database.Interfaces
 {
-    public interface IHotelRepository
+    interface IHotelRepository
     {
         IQueryable<HotelEntity> GetQueryable();
         HotelEntity GetById(Guid hotelId);
