@@ -16,6 +16,9 @@ using Hotel.Database;
 using Microsoft.AspNetCore.Http;
 using System.Web.Http;
 using Hotel.Database.Entities;
+using Serilog;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace HotelBookingSystem
 {
@@ -52,6 +55,28 @@ namespace HotelBookingSystem
             
             app.UseHttpsRedirection();
 
+            app.UseExceptionHandler( // получить подробную информацию об объектах исключения, например, стектрейс, сообщение
+                options =>
+                {
+                    options.Run(
+                        async context =>
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            context.Response.ContentType = "text/html";
+                            var exceptionObject = context.Features.Get<IExceptionHandlerFeature>();
+                            if (null != exceptionObject)
+                            {
+                                var errorMessage = $"<b>Exception Error: {exceptionObject.Error.Message} </b> {exceptionObject.Error.StackTrace}";
+                                await context.Response.WriteAsync(errorMessage).ConfigureAwait(false);
+                            }
+                        });
+                }
+            );
+
+            app.UseStaticFiles();
+
+            //app.UseSerilogRequestLogging();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -59,15 +84,10 @@ namespace HotelBookingSystem
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "api/{controller}/{action=Index}");
             });
-
-
-
-
         }
     }
 }
