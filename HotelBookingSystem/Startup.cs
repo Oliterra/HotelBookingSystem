@@ -1,21 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Hotel.Database;
 using Microsoft.AspNetCore.Http;
-using System.Web.Http;
-using Hotel.Database.Entities;
 using Serilog;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
@@ -27,6 +18,15 @@ namespace HotelBookingSystem
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            // initializes the Serilog using the settings fron appsetting.json
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -55,7 +55,7 @@ namespace HotelBookingSystem
             
             app.UseHttpsRedirection();
 
-            app.UseExceptionHandler( // получить подробную информацию об объектах исключения, например, стектрейс, сообщение
+            app.UseExceptionHandler(
                 options =>
                 {
                     options.Run(
@@ -75,7 +75,7 @@ namespace HotelBookingSystem
 
             app.UseStaticFiles();
 
-            //app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
