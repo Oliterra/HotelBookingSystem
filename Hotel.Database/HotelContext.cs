@@ -1,8 +1,7 @@
-﻿using Hotel.Database.Entities;
-using HotelBookingSystem.Models;
+﻿using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hotel.Database
+namespace Database
 {
     public class HotelContext : DbContext
     {

@@ -1,11 +1,8 @@
-﻿using Hotel.Database.Entities;
-using HotelBookingSystem.Models;
+﻿using Database.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Hotel.Database.Interfaces
+namespace Database.Interfaces
 {
     public interface IBookingRepository
     {

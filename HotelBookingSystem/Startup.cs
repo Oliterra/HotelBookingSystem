@@ -1,17 +1,17 @@
+using System.Net;
+using Database;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Hotel.Database;
-using Microsoft.AspNetCore.Http;
 using Serilog;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
 
-namespace HotelBookingSystem
+namespace WebAPI
 {
     public class Startup 
     {
@@ -33,7 +33,6 @@ namespace HotelBookingSystem
 
         public void ConfigureServices(IServiceCollection services) 
         {
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "test", Version = "v1" });
@@ -41,6 +40,7 @@ namespace HotelBookingSystem
 
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 

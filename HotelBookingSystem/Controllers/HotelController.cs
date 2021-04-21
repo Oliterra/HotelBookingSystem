@@ -1,17 +1,11 @@
-﻿using Business.Interfaces;
+﻿using AutoMapper;
+using Business.DTO;
+using Business.Interfaces;
 using Business.Models;
-using Business.Services;
-using HotelBookingSystem.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Serilog;
-using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
 {
@@ -21,11 +15,13 @@ namespace WebAPI.Controllers
     {
         private readonly IHotelService _hotelService;
         private readonly ILogger<HotelController> _logger;
+        private readonly IMapper _mapper;
         
-        public HotelController(IHotelService hotelService, ILogger<HotelController> logger)
+        public HotelController(IHotelService hotelService, ILogger<HotelController> logger, IMapper mapper)
         {
             _hotelService = hotelService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [Route("GetExceptioInfo")]
@@ -43,59 +39,34 @@ namespace WebAPI.Controllers
         [HttpGet("{id}", Name = "GetHotelEntity")]
         public IActionResult Get(Guid hotelId)
         {
-            HotelModel hotel = _hotelService.GetHotelById(hotelId);
-            if (hotel == null)
-            {
-                _logger.LogWarning("Hotel is not found");
-                return NotFound();
-            }
-            return new ObjectResult(hotel);
+            return Ok(_mapper.Map<Hotel>(_hotelService.GetHotelById(hotelId)));
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] HotelModel hotel)
+        public IActionResult Create([FromBody] Hotel hotel)
         {
-            if (hotel == null)
-            {
-                _logger.LogWarning("Hotel is not found");
-                return BadRequest();
-            }
-            _hotelService.AddHotel(hotel);
-            return CreatedAtRoute("GetHotelModel", new { id = hotel.Id}, hotel);
+            _hotelService.AddHotel(_mapper.Map<HotelModel>(hotel));
+            return Ok(_mapper.Map<Hotel>(hotel));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, [FromBody] HotelModel updatedHotel)
+        public IActionResult Update([FromBody] HotelForUpdate hotelForUpdate)
         {
-            if (updatedHotel == null || updatedHotel.Id != id)
-            {
-                _logger.LogWarning("Hotel is not found");
-                return BadRequest();
-            }
-
-            var hotel = _hotelService.Get(id);
-            if (hotel == null)
-            {
-                _logger.LogWarning("Hotel is not found");
-                return NotFound();
-            }
-
-            _hotelService.UpdateHotel(updatedHotel);
-            return new NoContentResult();
+            var hotelUpdate = _hotelService.UpdateHotel(_mapper.Map<HotelModel>(hotelForUpdate));
+            return Ok(_mapper.Map<Hotel>(hotelUpdate));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid hotelId)
         {
-            var hotel = _hotelService.Get(hotelId);
-            if (hotel == null)
-            {
-                _logger.LogWarning("Hotel is not found");
-                return NotFound();
-            }
+            var deletedHotel = _hotelService.GetHotelById(hotelId);
 
+            if (deletedHotel == null)
+            {
+                return NotFound("Hotel is not found");
+            }
             _hotelService.DeleteHotel(hotelId);
-            return new NoContentResult();
+            return Ok("Hotel deleted");
         }
     }
 }

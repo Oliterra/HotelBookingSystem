@@ -1,12 +1,11 @@
-﻿using Hotel.Database.Entities;
-using Hotel.Database.Interfaces;
+﻿using Database;
+using Database.Entities;
+using Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Hotel.Database.Repositories
+namespace Database.Repositories
 {
     public class BookingRepository : IBookingRepository
     {

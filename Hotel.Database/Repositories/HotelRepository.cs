@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Database.Entities;
 using Database.Interfaces;
-using Hotel.Database;
-using HotelBookingSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace Database.Repositories
 {

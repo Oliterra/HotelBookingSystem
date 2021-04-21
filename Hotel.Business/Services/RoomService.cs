@@ -1,11 +1,8 @@
 ﻿using Business.Interfaces;
 using Business.Models;
+using Database.Entities;
 using Database.Interfaces;
-using Hotel.Database.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Business.Services
 {

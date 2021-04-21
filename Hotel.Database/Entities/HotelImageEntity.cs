@@ -1,9 +1,6 @@
-﻿using HotelBookingSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace Hotel.Database.Entities
+namespace Database.Entities
 {
     public class HotelImageEntity
     {
