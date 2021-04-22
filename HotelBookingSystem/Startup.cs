@@ -1,32 +1,42 @@
-using System.Net;
 using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Net;
+using System.Text;
+using Business.Interfaces;
+using Business.Models.Authorization.ManageViewModel;
+using Business.Services;
+using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
+using TokenOptions = Business.Models.Authorization.TokenOptions;
 
 namespace WebAPI
 {
     public class Startup 
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
 
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .SetBasePath(env.ContentRootPath)
                 .Build();
 
             // initializes the Serilog using the settings fron appsetting.json
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
                 .CreateLogger();
+
         }
 
         public IConfiguration Configuration { get; }
@@ -41,6 +51,40 @@ namespace WebAPI
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+                {
+                    option.Password.RequireDigit = false;
+                    option.Password.RequiredLength = 3;
+                    option.Password.RequiredUniqueChars = 0;
+                    option.Password.RequireLowercase = false;
+                    option.Password.RequireNonAlphanumeric = false;
+                    option.Password.RequireUppercase = false;
+                }).AddEntityFrameworkStores<HotelContext>()
+                .AddDefaultTokenProviders();
+            
+
+                .AddJwtBearer(cfg =>
+                {
+                cfg.RequireHttpsMetadata = false; // determines if HTTPS is required
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = Configuration["TokenOptions:Issuer"],
+                    ValidAudience = Configuration["TokenOptions:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenOptions:Key"])),
+                };
+            });
+
+            services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddMvc();
+
+            services.AddAuthorization(options => options.AddPolicy("Trusted", policy => policy.RequireClaim("User")));
+
+            services.AddOptions();
+
+            services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
@@ -50,7 +94,6 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "test v1"));
-
             }
             
             app.UseHttpsRedirection();
