@@ -1,17 +1,16 @@
-﻿using System;
-using Business.Models.Authorization.Account;
-using Business.Models.Authorization.ManageViewModel;
+﻿using Business.ViewModels.Authorization.Account;
+using Business.ViewModels.Authorization.ManageViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
-using TokenOptions = Business.Models.Authorization.TokenOptions;
+using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
+
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +23,7 @@ namespace WebAPI.Controllers
         private readonly TokenOptions _tokenOptions;
 
         public TokenController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IOptions<TokenOptions> tokenOptions)
+            IOptions<TokenOptions> tokens)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +32,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Generate([FromBody] Login login)
+        public async Task<IActionResult> Generate([FromBody] Login model)
         {
             if (ModelState.IsValid) return BadRequest("Token is not find");
 
@@ -45,11 +44,6 @@ namespace WebAPI.Controllers
 
             if (!result.Succeeded) return BadRequest("Couldn't create the token");
 
-            var userClaims = await _userManager.GetClaimsAsync(user);
-
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Email));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -57,12 +51,10 @@ namespace WebAPI.Controllers
                 issuer: _tokenOptions.Issuer,
                 audience: _tokenOptions.Issuer,
                 claims: User.Claims,
-                expires: DataTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);
 
             return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-        }
-        
-
+        }      
     }
 }

@@ -1,3 +1,6 @@
+using Business.Interfaces;
+using Business.Services;
+using Business.ViewModels.Authorization.ManageViewModel;
 using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -13,11 +16,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Net;
 using System.Text;
-using Business.Interfaces;
-using Business.Models.Authorization.ManageViewModel;
-using Business.Services;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
-using TokenOptions = Business.Models.Authorization.TokenOptions;
+using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
 namespace WebAPI
 {
@@ -36,7 +36,6 @@ namespace WebAPI
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
                 .CreateLogger();
-
         }
 
         public IConfiguration Configuration { get; }
