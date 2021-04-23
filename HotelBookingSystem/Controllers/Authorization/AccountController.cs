@@ -1,8 +1,6 @@
 ﻿using Business.Extensions;
 using Business.Interfaces;
 using Business.ViewModels.Authorization.Account;
-using Business.ViewModels.Authorization.AccountViewModel;
-using Business.ViewModels.Authorization.ManageViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Business.ViewModels.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -19,7 +18,7 @@ namespace WebAPI.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager; // provides an API for user login
+        private readonly SignInManager<ApplicationUser> _signInManager; 
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
@@ -34,25 +33,22 @@ namespace WebAPI.Controllers
         public string ErrorMessage { get; set; }
 
         [HttpGet]
-        [AllowAnonymous] // opens public access to the controller method
+        [AllowAnonymous] 
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme); // signs the current user out of the application
-            return View(); // to generates the HTML markup to be displayed for the specified view and sends it to the browser
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme); 
+            return View(); 
         }
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken] // performs token verification when accessing the action method
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Login(Login model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                // attempts to sign in the specified username and password combination as an asynchronous operation.
-                // lockoutOnFailure flag indicating if the user account should be locked if the sign in fails
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in");
@@ -73,7 +69,7 @@ namespace WebAPI.Controllers
                     return View(model);
                 }
             }
-            // if something failed redisplay form
+            // if something failed 
             return View(model);
         }
 
@@ -103,7 +99,7 @@ namespace WebAPI.Controllers
                 return View(model);
             }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync(); // gets the TUser for the current two factor authentication login, as an asynchronous operation'
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync(); 
 
             if (user == null)
             {
@@ -112,8 +108,7 @@ namespace WebAPI.Controllers
 
             var authenticatorCode = model.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
 
-            var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, model.RememberMachine); // checks the login code from the authentication application and creates the user and performs the login as an asynchronous operation.
-
+            var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, model.RememberMachine); 
             if (result.Succeeded)
             {
                 _logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
@@ -136,7 +131,6 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {
-            // Ensure the user has gone through the username & password screen first
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
@@ -207,7 +201,6 @@ namespace WebAPI.Controllers
                 }
                 AddErrors(result);
             }
-            // If something failed, redisplay form
             return View(model);
         }
 
@@ -218,7 +211,7 @@ namespace WebAPI.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(HomeController.INdex), "Home");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -330,7 +323,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(HomeController.INdex), "Home");
             }
         }
     }

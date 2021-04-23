@@ -1,5 +1,4 @@
 ﻿using Business.ViewModels.Authorization;
-using Business.ViewModels.Authorization.ManageViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +17,7 @@ namespace WebAPI.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult INdex()
         {
             return View();
         }

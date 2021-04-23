@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Business.DTO;
 using Business.Models;
+using Business.ViewModels;
 
 namespace WebAPI
 {

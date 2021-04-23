@@ -1,13 +1,13 @@
+using System.Linq;
 using Business.Interfaces;
 using Business.Services;
-using Business.ViewModels.Authorization.ManageViewModel;
+using Business.ViewModels.Authorization;
 using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +15,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
@@ -48,6 +51,7 @@ namespace WebAPI
             });
 
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
+
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
 
@@ -61,8 +65,8 @@ namespace WebAPI
                     option.Password.RequireUppercase = false;
                 }).AddEntityFrameworkStores<HotelContext>()
                 .AddDefaultTokenProviders();
-            
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(cfg =>
                 {
                 cfg.RequireHttpsMetadata = false; // determines if HTTPS is required

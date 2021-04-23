@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Business.DTO;
 using Business.Interfaces;
 using Business.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using Business.ViewModels;
 
 namespace WebAPI.Controllers
 {
