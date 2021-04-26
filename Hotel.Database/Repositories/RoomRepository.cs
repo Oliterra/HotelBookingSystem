@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Database.Repositories
 {
-    class RoomRepository : IRoomRepository
+    public class RoomRepository : IRoomRepository
     {
         private readonly HotelContext _context;
 
