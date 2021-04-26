@@ -11,18 +11,41 @@ using Database.Repositories;
 
 namespace Business.Services
 {
-    public class SearchingService : ISearchingService
+    public class HotelsSearchService : IHotelsSearchService
     {
-        private readonly ISearchingRepository _searchingRepository;
+        private readonly IHotelsSearchRepository _hotelsSearchRepository;
 
-        public SearchingService(ISearchingRepository searchingRepository)
+        public HotelsSearchService(IHotelsSearchRepository hotelsSearchRepository)
         {
-            _searchingRepository = searchingRepository;
+            _hotelsSearchRepository = hotelsSearchRepository;
         }
+
+        public List<HotelModel> Find(HotelsSearchModel searchModel)
+        {
+            IQueryable<HotelEntity> hotelEntities = null;
+            
+            if (string.IsNullOrEmpty(searchModel.Name))
+            {
+                hotelEntities = _hotelsSearchRepository.GetHotels().Where(h => h.Name.Equals(searchModel.Name));
+            }
+
+            if (string.IsNullOrEmpty(searchModel.Country))
+            {
+                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.Country.Equals(searchModel.Country));
+            }
+
+            if (hotelEntities == null || !hotelEntities.Any())
+            {
+                return new List<HotelModel>();
+            }
+
+            return hotelEntities.Select(x=> Mapper.Map<HotelEntity, HotelModel>(x)).ToList();
+        }
+
         public List<HotelModel> GetHotelsByName(string hotelName)
         {
             List<HotelModel> result = new List<HotelModel>();
-            IQueryable<HotelEntity> query = _searchingRepository.GetHotels().OrderBy(x => x.Name);
+            IQueryable<HotelEntity> query = _hotelsSearchRepository.GetHotels().OrderBy(x => x.Name);
 
             if (hotelName != null)
                 query = query.Where(x => x.Name.Contains(hotelName) || x.Name.StartsWith(hotelName) || x.Name.EndsWith(hotelName));
@@ -37,7 +60,7 @@ namespace Business.Services
         public List<HotelModel> GetHotelsByStarsCount(int starsCount)
         {
             List<HotelModel> result = new List<HotelModel>();
-            IQueryable<HotelEntity> query = _searchingRepository.GetHotels().OrderBy(x => x.StarsCount);
+            IQueryable<HotelEntity> query = _hotelsSearchRepository.GetHotels().OrderBy(x => x.StarsCount);
 
             if (starsCount != 0)
                 query = query.Where(x => x.StarsCount == starsCount);
@@ -52,7 +75,7 @@ namespace Business.Services
         public List<HotelModel> GetHotelsByCountry(string hotelCountry)
         {
             List<HotelModel> result = new List<HotelModel>();
-            IQueryable<HotelEntity> query = _searchingRepository.GetHotels().OrderBy(x => x.Country);
+            IQueryable<HotelEntity> query = _hotelsSearchRepository.GetHotels().OrderBy(x => x.Country);
 
             if (hotelCountry != null)
                 query = query.Where(x => x.Country == hotelCountry);
@@ -67,7 +90,7 @@ namespace Business.Services
         public List<HotelModel> GetHotelsByCity(string hotelCity)
         {
             List<HotelModel> result = new List<HotelModel>();
-            IQueryable<HotelEntity> query = _searchingRepository.GetHotels().OrderBy(x => x.City);
+            IQueryable<HotelEntity> query = _hotelsSearchRepository.GetHotels().OrderBy(x => x.City);
 
             if (hotelCity != null)
                 query = query.Where(x => x.City == hotelCity);
@@ -82,7 +105,7 @@ namespace Business.Services
         public List<HotelModel> GetHotelsByPrice(int priceFrom, int priceTo)
         {
             List<HotelModel> result = new List<HotelModel>();
-            IQueryable<HotelEntity> query = _searchingRepository.GetHotels().OrderBy(x => x.City);
+            IQueryable<HotelEntity> query = _hotelsSearchRepository.GetHotels().OrderBy(x => x.City);
 
             if (priceFrom != 0 && priceTo != 0)
                 query = query.Where(x => x.PriceFrom >= priceFrom).Where(x => x.PriceTo <= priceTo);

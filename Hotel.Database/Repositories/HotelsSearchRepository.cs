@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Database.Repositories
 {
-    public class SearchingRepository: ISearchingRepository
+    public class HotelsSearchRepository: IHotelsSearchRepository
     {
         private readonly HotelContext _context;
 
-        public SearchingRepository(HotelContext context)
+        public HotelsSearchRepository(HotelContext context)
         {
             _context = context;
         }

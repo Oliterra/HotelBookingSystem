@@ -14,43 +14,62 @@ namespace WebAPI.Controllers
     [ApiController]
     public class SearchingController : ControllerBase
     {
-        private readonly ISearchingService _searchingService;
+        private readonly IHotelsSearchService _hotelsSearchService;
         private readonly IMapper _mapper;
 
-        public SearchingController(ISearchingService searchingService, IMapper mapper)
+        public SearchingController(IHotelsSearchService hotelsSearchService, IMapper mapper)
         {
-            _searchingService = searchingService;
+            _hotelsSearchService = hotelsSearchService;
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult Search(HotelSearchRequestModel searchModel)
+        {
+            
+            // List<HotelEntity>.select(x=> _mapper.Map<Hotel>(x)) -> List<Hotel>
+
+
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.Find(new HotelsSearchModel())));
         }
 
         [HttpGet]
         public IActionResult GetHotelsByName(string hotelName)
         {
-            return Ok(_mapper.Map<Hotel>(_searchingService.GetHotelsByName(hotelName)));
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.GetHotelsByName(hotelName)));
         }
 
         [HttpGet]
         public IActionResult GetHotelsByStarsCount (int starsCount)
         {
-            return Ok(_mapper.Map<Hotel>(_searchingService.GetHotelsByStarsCount(starsCount)));
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.GetHotelsByStarsCount(starsCount)));
         }
 
         [HttpGet]
         public IActionResult GetHotelsByCountry(string hotelCountry)
         {
-            return Ok(_mapper.Map<Hotel>(_searchingService.GetHotelsByCountry(hotelCountry)));
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.GetHotelsByCountry(hotelCountry)));
         }
 
         [HttpGet]
         public IActionResult GetHotelsByCity(string hotelCity)
         {
-            return Ok(_mapper.Map<Hotel>(_searchingService.GetHotelsByCity(hotelCity)));
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.GetHotelsByCity(hotelCity)));
         }
 
         [HttpGet]
         public IActionResult GetHotelsByPrice(int priceFrom, int priceTo)
         {
-            return Ok(_mapper.Map<Hotel>(_searchingService.GetHotelsByPrice(priceFrom, priceTo)));
+            return Ok(_mapper.Map<Hotel>(_hotelsSearchService.GetHotelsByPrice(priceFrom, priceTo)));
         }
+    }
+
+    public class HotelSearchRequestModel
+    {
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
+        public string Name { get; set; }
     }
 }

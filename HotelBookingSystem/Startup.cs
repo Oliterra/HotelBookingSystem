@@ -17,6 +17,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Net;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
@@ -78,6 +79,9 @@ namespace WebAPI
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.TryAddSingleton<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
