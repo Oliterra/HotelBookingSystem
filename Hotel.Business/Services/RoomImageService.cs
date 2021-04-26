@@ -7,7 +7,7 @@ namespace Business.Services
 {
     public class RoomImageService
     {
-        private IRoomImageRepository _roomImageRepository;
+        private readonly IRoomImageRepository _roomImageRepository;
 
         public RoomImageService(IRoomImageRepository roomImageRepository)
         {

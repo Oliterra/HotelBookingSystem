@@ -8,7 +8,7 @@ namespace Business.Services
 {
     class BookingService : IBookingService
     {
-        private IBookingRepository _bookingRepository;
+        private readonly IBookingRepository _bookingRepository;
         public BookingService(IBookingRepository bookingRepository)
         {
             _bookingRepository = bookingRepository;

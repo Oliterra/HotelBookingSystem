@@ -10,13 +10,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class HomeController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public HomeController(UserManager<ApplicationUser> userManager)
-        {
-            _userManager = userManager;
-        }
-
         public IActionResult INdex()
         {
             return View();

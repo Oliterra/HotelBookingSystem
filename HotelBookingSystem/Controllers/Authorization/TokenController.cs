@@ -51,9 +51,9 @@ namespace WebAPI.Controllers
             userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);// represents the encryption key and the security algorithms used to create the digital signature.
 
-            var token = new JwtSecurityToken(
+            var token = new JwtSecurityToken( // designed for representing a JSON Web Token
                 issuer: _tokenOptions.Issuer,
                 audience: _tokenOptions.Issuer,
                 claims: User.Claims,
