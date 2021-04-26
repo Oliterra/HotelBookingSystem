@@ -8,7 +8,7 @@ namespace Business.Services
 {
     public class RoomService : IRoomService
     {
-        private IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
         public RoomService(IRoomRepository roomRepository)
         {
             _roomRepository = roomRepository;

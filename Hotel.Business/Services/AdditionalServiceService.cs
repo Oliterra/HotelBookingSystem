@@ -6,9 +6,9 @@ using System;
 
 namespace Business.Services
 {
-    class AdditionalServiceService : IAdditionalServiceService
+    public class AdditionalServiceService : IAdditionalServiceService
     {
-        private IAdditionalServiceRepository _additionalServiceRepository;
+        private readonly IAdditionalServiceRepository _additionalServiceRepository;
 
         public AdditionalServiceService (IAdditionalServiceRepository additionalServiceRepository)
         {

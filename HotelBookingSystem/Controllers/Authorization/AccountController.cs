@@ -1,5 +1,5 @@
-﻿using Business.Extensions;
-using Business.Interfaces;
+﻿using Business.Interfaces;
+using Business.ViewModels.Authorization;
 using Business.ViewModels.Authorization.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Business.ViewModels.Authorization;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers
 {
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
                 }
                 if (result.RequiresTwoFactor) // returns a flag that specifies whether user authentication is required when trying to log in
                 {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe});
                 }
                 if (result.IsLockedOut) // returns a value indicating whether the authorized user is blocked, which makes it impossible to verify it
                 {

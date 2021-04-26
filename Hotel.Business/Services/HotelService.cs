@@ -8,7 +8,7 @@ namespace Business.Services
 {
     public class HotelService : IHotelService
     {
-        private IHotelRepository _hotelRepository;
+        private readonly IHotelRepository _hotelRepository;
         public HotelService(IHotelRepository hotelRepository)
         {
             _hotelRepository = hotelRepository;
