@@ -11,9 +11,15 @@ namespace Database.Entities
 
         public Guid ClassId { get; set; }
 
-        public string StarsCount { get; set; }
+        public int StarsCount { get; set; }
 
         public string Country { get; set; }
+
+        public string City { get; set; }
+
+        public int PriceFrom { get; set; }
+
+        public int PriceTo { get; set; }
 
         public string Address { get; set; }
 

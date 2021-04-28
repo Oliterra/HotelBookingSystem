@@ -9,6 +9,8 @@ namespace WebAPI
         public MappingProfile()
         {
             CreateMap<HotelModel, Hotel>();
+
+            CreateMap<HotelSearchRequestModel, HotelsSearchModel>();
         }
     }
 }
