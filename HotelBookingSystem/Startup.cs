@@ -17,6 +17,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Net;
 using System.Text;
+using Business.ViewModels;
+using CustomIdentityApp.Models;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
@@ -51,18 +53,8 @@ namespace WebAPI
             services.AddDbContext<HotelContext>(options => options.UseSqlServer("name=ConnectionStrings:db"));
 
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(option =>
-                {
-                    option.Password.RequireDigit = false;
-                    option.Password.RequiredLength = 3;
-                    option.Password.RequiredUniqueChars = 0;
-                    option.Password.RequireLowercase = false;
-                    option.Password.RequireNonAlphanumeric = false;
-                    option.Password.RequireUppercase = false;
-                }).AddEntityFrameworkStores<HotelContext>()
-                .AddDefaultTokenProviders();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(cfg =>
@@ -78,6 +70,12 @@ namespace WebAPI
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.TryAddSingleton<IEmailSender, EmailSender>();
+            //services.AddScoped<IEmailSender, EmailSender>();
+            //services.AddSingleton<IEmailSender, EmailSender>();
+            //services.TryAddSingleton<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
