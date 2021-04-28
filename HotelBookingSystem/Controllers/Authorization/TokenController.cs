@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPI.Interfaces;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
 
@@ -19,48 +20,17 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TokenController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly TokenOptions _tokenOptions;
-
-        public TokenController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IOptions<TokenOptions> tokens)
+        private readonly ITokenService _tokenService;
+        public TokenController(ITokenService tokenService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _tokenOptions = tokens.Value;
+            _tokenService = tokenService;
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Generate([FromBody] Login model)
+        [HttpGet]
+        public TokenOptions GenerateToken()
         {
-            if (ModelState.IsValid) return BadRequest("Token is not find");
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user == null) return BadRequest("Couldn't create the token");
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-            if (!result.Succeeded) return BadRequest("Couldn't create the token");
-
-            var userClaims = await _userManager.GetClaimsAsync(user);
-
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Email));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);// represents the encryption key and the security algorithms used to create the digital signature.
-
-            var token = new JwtSecurityToken( // designed for representing a JSON Web Token
-                issuer: _tokenOptions.Issuer,
-                audience: _tokenOptions.Issuer,
-                claims: User.Claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
-
-            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-        }      
+            return _tokenService.GenerateToken();
+        }
     }
 }
+
