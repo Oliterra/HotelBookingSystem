@@ -19,6 +19,7 @@ using System.Net;
 using System.Text;
 using Business.ViewModels;
 using CustomIdentityApp.Models;
+using WebAPI.Services;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
 
@@ -73,6 +74,8 @@ namespace WebAPI
             //services.AddScoped<IEmailSender, EmailSender>();
             //services.AddSingleton<IEmailSender, EmailSender>();
             //services.TryAddSingleton<IEmailSender, EmailSender>();
+
+            services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
 
             services.AddMvc();
 
