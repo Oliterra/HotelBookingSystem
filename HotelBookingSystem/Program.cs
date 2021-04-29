@@ -3,12 +3,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
+using System.Threading.Tasks;
+using Database;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             // reads a config file (appsettings.json) and get the Configuration object for later use
             
@@ -24,6 +28,14 @@ namespace WebAPI
             finally
             {
                 Log.CloseAndFlush(); // alows the logger to log any pending messages while the application closes down
+            }
+
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                await DbInitializer.Initialize(scope.ServiceProvider);
+                host.Run();
             }
         }
 

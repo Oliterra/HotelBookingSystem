@@ -81,6 +81,10 @@ namespace WebAPI
 
             services.AddAuthorization(options => options.AddPolicy("Trusted", policy => policy.RequireClaim("User")));
 
+            services.AddAuthorization(options => options.AddPolicy("SuperAdministratorRole", policy=>policy.RequireRole("SuperAdmin")));
+
+            services.AddAuthorization(options => options.AddPolicy("AdministratorRole", policy => policy.RequireRole("AdminOwner")));
+
             services.AddOptions();
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
