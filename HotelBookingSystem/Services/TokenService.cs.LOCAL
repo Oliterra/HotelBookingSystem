@@ -47,8 +47,8 @@ namespace WebAPI.Services
                     expires: expiryTime,
                     signingCredentials: credentials);
 
-            string result = new JwtSecurityTokenHandler().WriteToken(token);
-=======
+            string result = new JwtSecurityTokenHandler().WriteToken(token); // for creating and validating Json Web Tokens
+
             return result;
         }
 
