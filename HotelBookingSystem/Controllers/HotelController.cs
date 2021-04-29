@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -24,6 +25,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         [Route("GetExceptioInfo")]
         [HttpGet]
         public IEnumerable<string> GetExeptionInfo() //экшн-метод, чтобы пробросить исключение
@@ -36,12 +38,14 @@ namespace WebAPI.Controllers
             return arrRetValues;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("{id}", Name = "GetHotelEntity")]
         public IActionResult Get(Guid hotelId)
         {
             return Ok(_mapper.Map<Hotel>(_hotelService.GetHotelById(hotelId)));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Create([FromBody] Hotel hotel)
         {
@@ -49,6 +53,7 @@ namespace WebAPI.Controllers
             return Ok(_mapper.Map<Hotel>(hotel));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] HotelForUpdate hotelForUpdate)
         {
@@ -56,6 +61,7 @@ namespace WebAPI.Controllers
             return Ok(_mapper.Map<Hotel>(hotelUpdate));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid hotelId)
         {
