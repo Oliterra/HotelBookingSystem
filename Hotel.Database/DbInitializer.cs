@@ -67,6 +67,13 @@ namespace Database
                     }
                 }
             }
+
+            roleName = "AdministratorRole";
+
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
         }
     }
 }

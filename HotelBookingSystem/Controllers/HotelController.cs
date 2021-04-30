@@ -38,14 +38,14 @@ namespace WebAPI.Controllers
             return arrRetValues;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "SuperAdministratorRole")]
         [HttpGet("{id}", Name = "GetHotelEntity")]
         public IActionResult Get(Guid hotelId)
         {
             return Ok(_mapper.Map<Hotel>(_hotelService.GetHotelById(hotelId)));
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "SuperAdministratorRole")]
         [HttpPost]
         public IActionResult Create([FromBody] Hotel hotel)
         {
@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
             return Ok(_mapper.Map<Hotel>(hotel));
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "SuperAdministratorRole")]
         [HttpPut("{id}")]
         public IActionResult Update([FromBody] HotelForUpdate hotelForUpdate)
         {
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             return Ok(_mapper.Map<Hotel>(hotelUpdate));
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "SuperAdministratorRole")]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid hotelId)
         {
