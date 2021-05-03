@@ -77,13 +77,13 @@ namespace WebAPI
 
             services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<HotelContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMvc();
 
-            services.AddAuthorization(options => options.AddPolicy("Trusted", policy => policy.RequireClaim("User")));
-
-            services.AddAuthorization(options => options.AddPolicy("SuperAdministratorRole", policy=>policy.RequireRole("SuperAdmin")));
-
-            services.AddAuthorization(options => options.AddPolicy("AdministratorRole", policy => policy.RequireRole("AdminOwner")));
+            services.AddAuthorization();
 
             services.AddOptions();
 

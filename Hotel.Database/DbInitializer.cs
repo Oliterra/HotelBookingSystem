@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Database
 {
@@ -18,23 +19,30 @@ namespace Database
             _logger = logger;
         }
 
-        public static async Task Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            var context = serviceProvider.GetRequiredService<HotelContext>(); // uses the service provider to create an object that represents the type HotelContext
+            var context = serviceProvider.GetRequiredService<HotelContext>();
 
-            context.Database.EnsureCreated(); // create the database if it doesn't exist
+            context.Database.EnsureCreated();
 
+            context.Database.Migrate();
+
+            SeedUsers(serviceProvider).Wait();
+
+            context.SaveChanges();
+        }
+
+        private static async Task SeedUsers(IServiceProvider serviceProvider)
+        {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            var roleName = "SuperAdmin";
+            const string roleName = "SuperOnly";
 
-            IdentityResult result;
-
-            var roleExist = await roleManager.RoleExistsAsync(roleName); // returns a flag indicating whether the specified object exists
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
 
             if (!roleExist)
             {
-                result = await roleManager.CreateAsync(new IdentityRole(roleName));
+                var result = await roleManager.CreateAsync(new IdentityRole(roleName));
 
                 if (result.Succeeded)
                 {
@@ -59,20 +67,13 @@ namespace Database
                     if (result.Succeeded)
                     {
                         result = await userManager.AddToRoleAsync(admin.ToString(), roleName);
-                        
+
                         if (!result.Succeeded)
                         {
-                            _logger.LogError("superadmin wasn't added");
+                            _logger.LogError("Superadmin wasn't added");
                         }
                     }
                 }
-            }
-
-            roleName = "AdministratorRole";
-
-            if (!await roleManager.RoleExistsAsync(roleName))
-            {
-                await roleManager.CreateAsync(new IdentityRole(roleName));
             }
         }
     }

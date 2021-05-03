@@ -34,9 +34,10 @@ namespace WebAPI
 
             using (var scope = host.Services.CreateScope())
             {
-                await DbInitializer.Initialize(scope.ServiceProvider);
-                host.Run();
+                DbInitializer.Initialize(scope.ServiceProvider);
             }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
