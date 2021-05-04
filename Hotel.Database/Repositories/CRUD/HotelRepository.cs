@@ -1,25 +1,25 @@
 ﻿using Database.Entities;
-using Database.Interfaces;
+using Database.Interfaces.CRUD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Database.Repositories
+namespace Database.Repositories.CRUD
 {
-    class RoomImageRepository : IRoomImageRepository
+    public class HotelRepository : IHotelRepository
     {
         private readonly HotelContext _context;
 
-        public RoomImageRepository(HotelContext context)
+        public HotelRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public bool Add(RoomImageEntity roomImage)
+        public bool Add(HotelEntity hotel)
         {
             try
             {
-                _context.RoomImages.Add(roomImage);
+                _context.Hotels.Add(hotel);
                 _context.SaveChanges();
                 return true;
             }
@@ -29,11 +29,11 @@ namespace Database.Repositories
             }
         }
 
-        public bool Delete(Guid roomImageId)
+        public bool Delete(Guid hotelId)
         {
             try
             {
-                _context.RoomImages.Remove(_context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault());
+                _context.Hotels.Remove(_context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault());
                 _context.SaveChanges();
                 return true;
             }
@@ -43,11 +43,11 @@ namespace Database.Repositories
             }
         }
 
-        public RoomImageEntity GetById(Guid roomImageId)
+        public HotelEntity GetById(Guid hotelId)
         {
             try
             {
-                return _context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault();
+                return _context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault();
             }
             catch
             {
@@ -55,16 +55,16 @@ namespace Database.Repositories
             }
         }
 
-        public IQueryable<RoomImageEntity> GetQueryable()
+        public IQueryable<HotelEntity> GetQueryable()
         {
-            return _context.RoomImages;
+            return _context.Hotels;
         }
 
-        public bool Update(RoomImageEntity roomImage)
+        public bool Update(HotelEntity hotel)
         {
             try
             {
-                _context.Entry(roomImage).State = EntityState.Modified;
+                _context.Entry(hotel).State = EntityState.Modified;
                 _context.SaveChanges();
                 return true;
             }

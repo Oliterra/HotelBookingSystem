@@ -1,8 +1,8 @@
-﻿using Database.Entities;
-using System;
+﻿using System;
 using System.Linq;
+using Database.Entities;
 
-namespace Database.Interfaces
+namespace Database.Interfaces.CRUD
 {
     public interface IAdditionalServiceRepository
     {

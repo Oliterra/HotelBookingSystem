@@ -1,7 +1,7 @@
 ﻿using Business.Models;
-using Database.Interfaces;
-using System;
 using Database.Entities;
+using Database.Interfaces.CRUD;
+using System;
 
 namespace Business.Services
 {

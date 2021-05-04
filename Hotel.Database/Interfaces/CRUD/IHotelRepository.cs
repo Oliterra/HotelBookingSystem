@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Database.Interfaces
+namespace Database.Interfaces.CRUD
 {
     public interface IHotelRepository
     {

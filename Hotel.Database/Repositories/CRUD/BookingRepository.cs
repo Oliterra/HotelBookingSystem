@@ -1,11 +1,10 @@
-﻿using Database;
-using Database.Entities;
-using Database.Interfaces;
+﻿using Database.Entities;
+using Database.Interfaces.CRUD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Database.Repositories
+namespace Database.Repositories.CRUD
 {
     public class BookingRepository : IBookingRepository
     {

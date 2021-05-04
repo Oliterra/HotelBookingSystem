@@ -1,25 +1,25 @@
 ﻿using Database.Entities;
-using Database.Interfaces;
+using Database.Interfaces.CRUD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Database.Repositories
+namespace Database.Repositories.CRUD
 {
-    class AdditionalServiceRepository : IAdditionalServiceRepository
+    public class RoomImageRepository : IRoomImageRepository
     {
         private readonly HotelContext _context;
 
-        public AdditionalServiceRepository(HotelContext context)
+        public RoomImageRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public bool Add(AdditionalServiceEntity addServ)
+        public bool Add(RoomImageEntity roomImage)
         {
             try
             {
-                _context.AdditionalServices.Add(addServ);
+                _context.RoomImages.Add(roomImage);
                 _context.SaveChanges();
                 return true;
             }
@@ -29,11 +29,11 @@ namespace Database.Repositories
             }
         }
 
-        public bool Delete(Guid addServId)
+        public bool Delete(Guid roomImageId)
         {
             try
             {
-                _context.AdditionalServices.Remove(_context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault());
+                _context.RoomImages.Remove(_context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault());
                 _context.SaveChanges();
                 return true;
             }
@@ -43,28 +43,28 @@ namespace Database.Repositories
             }
         }
 
-        public AdditionalServiceEntity GetById(Guid addServId)
+        public RoomImageEntity GetById(Guid roomImageId)
         {
             try
             {
-                return _context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault();
+                return _context.RoomImages.Where(x => x.Id == roomImageId).FirstOrDefault();
             }
             catch
             {
-                throw;
+                throw new NotImplementedException();
             }
         }
 
-        public IQueryable<AdditionalServiceEntity> GetQueryable()
+        public IQueryable<RoomImageEntity> GetQueryable()
         {
-            return _context.AdditionalServices;
+            return _context.RoomImages;
         }
 
-        public bool Update(AdditionalServiceEntity addServ)
+        public bool Update(RoomImageEntity roomImage)
         {
             try
             {
-                _context.Entry(addServ).State = EntityState.Modified;
+                _context.Entry(roomImage).State = EntityState.Modified;
                 _context.SaveChanges();
                 return true;
             }
