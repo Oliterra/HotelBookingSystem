@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using AutoMapper;
 using Business.Interfaces;
 using Business.Models;
 using Database.Entities;
@@ -14,11 +16,12 @@ namespace Business.Services
     {
         private readonly IHotelsSearchRepository _hotelsSearchRepository;
         private readonly ILogger _logger;
+        private readonly IMapper _mapper;
 
-        public HotelsSearchService(IHotelsSearchRepository hotelsSearchRepository, ILogger logger)
+        public HotelsSearchService(IHotelsSearchRepository hotelsSearchRepository, ILogger logger, IMapper mapper)
         {
             _hotelsSearchRepository = hotelsSearchRepository;
-
+            _mapper = mapper;
             _logger = logger;
         }
 

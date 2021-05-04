@@ -9,6 +9,8 @@ namespace Database.Entities
 
         public Guid HotelId { get; set; }
 
+        public bool IsFree { get; set; }
+
         public int Floor { get; set; }
 
         public int Number { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Models;
 using Business.ViewModels;
+using Database.Entities;
 
 namespace WebAPI
 {
@@ -11,6 +12,8 @@ namespace WebAPI
             CreateMap<HotelModel, Hotel>();
 
             CreateMap<HotelSearchRequestModel, HotelsSearchModel>();
+
+            CreateMap<HotelEntity, HotelModel>();
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Business.Interfaces;
+﻿using System;
+using Business.Interfaces.CRUD;
 using Business.Models;
 using Database.Entities;
 using Database.Interfaces.CRUD;
-using System;
 
-namespace Business.Services
+namespace Business.Services.CRUD
 {
     public class HotelService : IHotelService
     {

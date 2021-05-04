@@ -1,11 +1,12 @@
-﻿using Business.Models;
+﻿using System;
+using Business.Interfaces.CRUD;
+using Business.Models;
 using Database.Entities;
 using Database.Interfaces.CRUD;
-using System;
 
-namespace Business.Services
+namespace Business.Services.CRUD
 {
-    public class RoomImageService
+    public class RoomImageService : IRoomImageService
     {
         private readonly IRoomImageRepository _roomImageRepository;
 
@@ -41,7 +42,7 @@ namespace Business.Services
             return Mapper.Map<RoomImageEntity, RoomImageModel>(_roomImageRepository.GetById(roomImageId));
         }
 
-        public bool UpateRoomImage(RoomImageModel roomImage)
+        public bool UpdateRoomImage(RoomImageModel roomImage)
         {
             if (roomImage == null)
             {
