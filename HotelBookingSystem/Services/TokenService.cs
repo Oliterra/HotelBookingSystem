@@ -48,7 +48,6 @@ namespace WebAPI.Services
                     signingCredentials: credentials);
 
             string result = new JwtSecurityTokenHandler().WriteToken(token);
-=======
             return result;
         }
 
