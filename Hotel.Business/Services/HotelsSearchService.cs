@@ -29,17 +29,17 @@ namespace Business.Services
         {
             IQueryable<HotelEntity> hotelEntities = null;
 
-            if (string.IsNullOrEmpty(searchModel.Name))
+            if (!string.IsNullOrEmpty(searchModel.Name))
             {
                 hotelEntities = _hotelsSearchRepository.GetHotels().Where(h => h.Name.Equals(searchModel.Name));
             }
 
-            if (string.IsNullOrEmpty(searchModel.Country))
+            if (!string.IsNullOrEmpty(searchModel.Country))
             {
                 hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.Country.Equals(searchModel.Country));
             }
 
-            if (string.IsNullOrEmpty(searchModel.City))
+            if (!string.IsNullOrEmpty(searchModel.City))
             {
                 hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.City.Equals(searchModel.City));
             }

@@ -14,6 +14,8 @@ namespace WebAPI
             CreateMap<HotelSearchRequestModel, HotelsSearchModel>();
 
             CreateMap<HotelEntity, HotelModel>();
+
+            CreateMap<RoomEntity, RoomModel>();
         }
     }
 }
