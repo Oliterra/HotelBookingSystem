@@ -3,23 +3,24 @@ using Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using Database.Interfaces.CRUD;
 
-namespace Database.Repositories
+namespace Database.Repositories.CRUD
 {
-    class HotelRepository : IHotelRepository
+    public class AdditionalServiceRepository : IAdditionalServiceRepository
     {
         private readonly HotelContext _context;
 
-        public HotelRepository(HotelContext context)
+        public AdditionalServiceRepository(HotelContext context)
         {
             _context = context;
         }
 
-        public bool Add(HotelEntity hotel)
+        public bool Add(AdditionalServiceEntity addServ)
         {
             try
             {
-                _context.Hotels.Add(hotel);
+                _context.AdditionalServices.Add(addServ);
                 _context.SaveChanges();
                 return true;
             }
@@ -29,11 +30,11 @@ namespace Database.Repositories
             }
         }
 
-        public bool Delete(Guid hotelId)
+        public bool Delete(Guid addServId)
         {
             try
             {
-                _context.Hotels.Remove(_context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault());
+                _context.AdditionalServices.Remove(_context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault());
                 _context.SaveChanges();
                 return true;
             }
@@ -43,28 +44,28 @@ namespace Database.Repositories
             }
         }
 
-        public HotelEntity GetById(Guid hotelId)
+        public AdditionalServiceEntity GetById(Guid addServId)
         {
             try
             {
-                return _context.Hotels.Where(x => x.Id == hotelId).FirstOrDefault();
+                return _context.AdditionalServices.Where(x => x.Id == addServId).FirstOrDefault();
             }
             catch
             {
-                throw new NotImplementedException();
+                throw;
             }
         }
 
-        public IQueryable<HotelEntity> GetQueryable()
+        public IQueryable<AdditionalServiceEntity> GetQueryable()
         {
-            return _context.Hotels;
+            return _context.AdditionalServices;
         }
 
-        public bool Update(HotelEntity hotel)
+        public bool Update(AdditionalServiceEntity addServ)
         {
             try
             {
-                _context.Entry(hotel).State = EntityState.Modified;
+                _context.Entry(addServ).State = EntityState.Modified;
                 _context.SaveChanges();
                 return true;
             }

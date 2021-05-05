@@ -1,12 +1,12 @@
 ﻿using Database.Entities;
-using Database.Interfaces;
+using Database.Interfaces.CRUD;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Database.Repositories
+namespace Database.Repositories.CRUD
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly HotelContext _context;
 

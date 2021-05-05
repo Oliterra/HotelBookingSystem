@@ -2,6 +2,8 @@ using Business.Interfaces;
 using Business.Services;
 using Business.ViewModels.Authorization;
 using Database;
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -14,11 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using React.AspNet;
 using Serilog;
 using System.Net;
 using System.Text;
-using Business.ViewModels;
-using CustomIdentityApp.Models;
 using WebAPI.Services;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
@@ -70,6 +71,14 @@ namespace WebAPI
                 };
             });
 
+            services.AddMemoryCache();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddReact();
+
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
+
             services.AddTransient<IEmailSender, EmailSender>();
             //services.AddScoped<IEmailSender, EmailSender>();
             //services.AddSingleton<IEmailSender, EmailSender>();
@@ -118,6 +127,10 @@ namespace WebAPI
                         });
                 }
             );
+
+            app.UseReact(config => { });
+
+            app.UseDefaultFiles();
 
             app.UseStaticFiles();
 

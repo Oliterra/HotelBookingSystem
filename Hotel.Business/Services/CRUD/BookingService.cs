@@ -1,12 +1,12 @@
-﻿using Business.Interfaces;
+﻿using System;
+using Business.Interfaces.CRUD;
 using Business.Models;
 using Database.Entities;
-using Database.Interfaces;
-using System;
+using Database.Interfaces.CRUD;
 
-namespace Business.Services
+namespace Business.Services.CRUD
 {
-    class BookingService : IBookingService
+    public class BookingService : IBookingService
     {
         private readonly IBookingRepository _bookingRepository;
         public BookingService(IBookingRepository bookingRepository)
