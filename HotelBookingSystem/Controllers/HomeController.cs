@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -21,6 +22,12 @@ namespace WebAPI.Controllers
         }
 
         public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [Authorize (Policy = "SuperAdministratorRole")]
+        public IActionResult AdminOnly()
         {
             return View();
         }
