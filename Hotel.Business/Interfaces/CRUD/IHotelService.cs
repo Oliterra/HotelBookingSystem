@@ -1,7 +1,7 @@
 ﻿using Business.Models;
 using System;
 
-namespace Business.Interfaces
+namespace Business.Interfaces.CRUD
 {
     public interface IHotelService
     {
