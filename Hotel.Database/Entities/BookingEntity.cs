@@ -25,8 +25,6 @@ namespace Database.Entities
 
         public ICollection<BookingAdditionalServiceEntity> BookingAdditionalService { get; set; }
 
-        public ICollection<BookingAssignedUserEntity> BookingAssignedPerson { get; set; }
-
         public ICollection<PaymentResultEntity> PaymentResult { get; set; }
     }
 } 

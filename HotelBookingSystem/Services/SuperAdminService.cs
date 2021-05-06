@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Enumeration;
-using System.Linq;
-using System.Threading.Tasks;
-using Business.ViewModels.Authorization;
+﻿using Business.ViewModels.Authorization;
 using Database;
 using Database.Entities;
-using Microsoft.AspNet.Identity;
-using Microsoft.Extensions.Logging;
-using WebAPI.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+using WebAPI.Interfaces;
 
 namespace WebAPI.Services
 {

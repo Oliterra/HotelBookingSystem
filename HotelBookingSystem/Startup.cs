@@ -84,7 +84,7 @@ namespace WebAPI
             //services.AddSingleton<IEmailSender, EmailSender>();
             //services.TryAddSingleton<IEmailSender, EmailSender>();
 
-            services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
+            //services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<HotelContext>()

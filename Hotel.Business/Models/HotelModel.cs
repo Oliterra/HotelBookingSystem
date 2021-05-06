@@ -9,8 +9,6 @@ namespace Business.Models
 
         public string Name { get; set; }
 
-        public Guid ClassId { get; set; }
-
         public int StarsCount { get; set; }
 
         public string Country { get; set; }
@@ -23,16 +21,10 @@ namespace Business.Models
 
         public string Address { get; set; }
 
-        public string BuildingNumber { get; set; }
-
         public bool IsFavorite { get; set; }
 
         public bool IsFreeRooms { get; set; }
 
-        public HotelClassModel HotelClass { get; set; }
-
         public HotelImageModel HotelImage { get; set; }
-
-        public ICollection<BookingModel> Booking { get; set; }
     }
 }

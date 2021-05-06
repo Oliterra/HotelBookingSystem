@@ -6,21 +6,19 @@ namespace Business.ViewModels
 {
     public class HotelForUpdate
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
-
-        public Guid ClassId { get; set; }
 
         public string StarsCount { get; set; }
 
         public string Country { get; set; }
 
+        public string City { get; set; }
+
+        public double PriceFrom { get; set; }
+
+        public double PriceTo { get; set; }
+
         public string Address { get; set; }
-
-        public string BuildingNumber { get; set; }
-
-        public HotelClass HotelClass { get; set; }
 
         public HotelImage HotelImage { get; set; }
     }
