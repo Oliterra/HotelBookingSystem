@@ -12,11 +12,5 @@ namespace Business.Models
         public string Description { get; set; }
 
         public int Cost { get; set; }
-
-        public Guid AdditionalServiceTypeId { get; set; }
-
-        public AdditionalServiceTypeModel AdditionalServiceType { get; set; }
-
-        public ICollection<BookingAdditionalServiceModel> BookingAdditionalService { get; set; }
     }
 }
