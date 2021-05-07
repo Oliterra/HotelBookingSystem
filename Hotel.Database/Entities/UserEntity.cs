@@ -17,7 +17,5 @@ namespace Database.Entities
         public string Email { get; set; }
 
         public long Phone { get; set; }
-
-        public ICollection<BookingAssignedUserEntity> BookingAssignedUserPerson { get; set; }
     }
 }

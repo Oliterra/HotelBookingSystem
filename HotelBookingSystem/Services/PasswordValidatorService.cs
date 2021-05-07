@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -39,4 +39,4 @@ namespace WebAPI.Services
             return Task.FromResult(errors.Count == 0 ? IdentityResult.Success : IdentityResult.Failed(errors.ToArray()));
         }
     }
-}
+} */

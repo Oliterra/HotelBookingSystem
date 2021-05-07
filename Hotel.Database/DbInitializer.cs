@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Database
 {
@@ -66,7 +64,7 @@ namespace Database
 
                     if (result.Succeeded)
                     {
-                        result = await userManager.AddToRoleAsync(admin.ToString(), roleName);
+                        result = await userManager.AddToRoleAsync(admin, roleName);
 
                         if (!result.Succeeded)
                         {

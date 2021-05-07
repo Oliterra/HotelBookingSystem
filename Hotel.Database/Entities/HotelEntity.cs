@@ -9,8 +9,6 @@ namespace Database.Entities
 
         public string Name { get; set; }
 
-        public Guid ClassId { get; set; }
-
         public int StarsCount { get; set; }
 
         public string Country { get; set; }
@@ -23,16 +21,8 @@ namespace Database.Entities
 
         public string Address { get; set; }
 
-        public string BuildingNumber { get; set; }
-
         public bool IsFavorite { get; set; }
 
         public bool IsFreeRooms { get; set; }
-
-        public HotelClassEntity HotelClass { get; set; }
-
-        public HotelClassEntity HotelImage { get; set; }
-
-        public ICollection<BookingEntity> Booking { get; set; }
     }
 }
