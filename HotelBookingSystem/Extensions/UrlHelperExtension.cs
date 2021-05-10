@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -27,4 +27,4 @@ namespace WebAPI.Extensions
                 protocol: scheme);
         }
     }
-}
+}*/

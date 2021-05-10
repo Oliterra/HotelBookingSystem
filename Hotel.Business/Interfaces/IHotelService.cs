@@ -10,8 +10,13 @@ namespace Business.Interfaces
     public interface IHotelService
     {
         Task AddHotel(HotelModel hotel);
+
         Task<HotelModel> GetHotel(Guid id);
+
         Task DeleteHotel(Guid id);
+
         Task UpdateHotel(Guid id, HotelModel hotel);
+
+        Task<HotelModel> GetAllHotels();
     }
 }

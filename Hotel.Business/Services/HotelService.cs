@@ -63,6 +63,14 @@ namespace Business.Services
             await _hotelRepository.Update(_mapper.Map<HotelEntity>(hotel));
         }
 
+        public async Task<HotelModel> GetAllHotels()
+        {
+
+            var getHotels = await _hotelRepository.GetAll();
+            HotelModel hotels = _mapper.Map<HotelModel>(getHotels);
+            return hotels;
+        }
+
         private HotelModel UpdateHotelOptions(HotelModel hotel, HotelModel updatedHotel)
         {
             hotel.Id = updatedHotel.Id;
