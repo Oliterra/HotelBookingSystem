@@ -97,10 +97,16 @@ namespace WebAPI
             services.AddOptions();
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
+
+            services.AddCors();
         }
         
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
