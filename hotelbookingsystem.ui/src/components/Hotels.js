@@ -11,7 +11,7 @@ import { useToasts } from "react-toast-notifications";
 const styles = theme => ({ 
     root: { 
         "& .MuiTableCell-head": { 
-            fontSize: "1.25rem"
+            fontSize: "1rem"
         } 
     }, 
 
@@ -38,23 +38,12 @@ const Hotels = ({ classes, ...props }) => {
     return ( 
         <Paper className={classes.paper} elevation={3}> 
             <Grid container> 
-                <Grid item xs={6}> 
+                <Grid item xs={12}> 
                     <HotelForm {...({ currentId, setCurrentId })} /> 
                 </Grid> 
-                <Grid item xs={6}> 
+                <Grid item xs={12}> 
                     <TableContainer> 
                         <Table> 
-                            <TableHead className={classes.root}> 
-                                <TableRow> 
-                                    <TableCell>Name</TableCell> 
-                                    <TableCell>Number os stars</TableCell> 
-                                    <TableCell>Country</TableCell> 
-                                    <TableCell>City</TableCell> 
-                                    <TableCell>Price From</TableCell> 
-                                    <TableCell>Price To</TableCell> 
-                                    <TableCell>Address</TableCell> 
-                                </TableRow> 
-                            </TableHead> 
                             <TableBody> 
                                 { 
                                     props.hotelList.map((record, index) => { 

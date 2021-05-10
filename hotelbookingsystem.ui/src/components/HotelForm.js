@@ -100,8 +100,16 @@ const HotelForm = ({ classes, ...props }) => {
 
     return ( 
         <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}> 
-            <Grid container> 
-                <Grid item xs={6}> 
+            <Grid container direction="column" justify="flex-start" alignItems="stretch"> 
+                <Grid item xs={12} >
+                <TextField 
+                        name="name" 
+                        variant="outlined" 
+                        label="Name" 
+                        value={values.name} 
+                        onChange={handleInputChange} 
+                        {...(errors.name && { error: true, helperText: errors.name })} 
+                    />  
                     <TextField 
                         name="name" 
                         variant="outlined" 
@@ -130,8 +138,6 @@ const HotelForm = ({ classes, ...props }) => {
                         </Select> 
                         {errors.starsCount && <FormHelperText>{errors.starsCount}</FormHelperText>} 
                     </FormControl> 
-                </Grid> 
-                <Grid item xs={6}> 
                     <TextField 
                         name="country" 
                         variant="outlined" 
@@ -140,7 +146,6 @@ const HotelForm = ({ classes, ...props }) => {
                         onChange={handleInputChange} 
                         {...(errors.country && { error: true, helperText: errors.country })} 
                     /> 
-
                     <TextField 
                         name="city" 
                         variant="outlined" 
@@ -149,7 +154,6 @@ const HotelForm = ({ classes, ...props }) => {
                         onChange={handleInputChange} 
                         {...(errors.city && { error: true, helperText: errors.city })} 
                     /> 
-
                     <TextField 
                         name="priceFrom" 
                         variant="outlined" 
@@ -184,6 +188,7 @@ const HotelForm = ({ classes, ...props }) => {
 
                         <Button 
                             variant="contained" 
+                            color="secondary" 
                             className={classes.smMargin} 
                             onClick={resetForm} 
                         > 

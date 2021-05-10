@@ -65,7 +65,6 @@ namespace Business.Services
 
         public async Task<HotelModel> GetAllHotels()
         {
-
             var getHotels = await _hotelRepository.GetAll();
             HotelModel hotels = _mapper.Map<HotelModel>(getHotels);
             return hotels;

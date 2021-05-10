@@ -86,6 +86,8 @@ namespace WebAPI
 
             //services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
 
+            //services.AddTransient<IHotelsSearchService, HotelsSearchService>();
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<HotelContext>()
                 .AddDefaultTokenProviders();

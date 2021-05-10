@@ -8,6 +8,7 @@ namespace Database
     {
         public HotelContext(DbContextOptions<HotelContext> options) : base(options)
         {
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
