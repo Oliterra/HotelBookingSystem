@@ -1,66 +1,49 @@
-import React, { useState, useEffect } from "react"; 
-import { connect } from "react-redux"; 
-import * as actions from "../actions/hotel"; 
-import { Grid, Paper, TableContainer, Table, TableRow, TableCell, TableBody, withStyles } from "@material-ui/core"; 
-import './HotelsForUsers.css';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/hotel";
+import { Grid, Paper, withStyles,} from "@material-ui/core";
+import HotelsTable from "./HotelsTable";
+import "./HotelsForUsers.css";
 
+const styles = (theme) => ({
+  root: {
+    "& .MuiTableCell-head": {
+      fontSize: "1.25rem",
+    },
+  },
+  paper: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2),
+  },
+});
 
-const styles = theme => ({ 
-    root: { 
-        "& .MuiTableCell-head": { 
-            fontSize: "1rem"
-        } 
-    }, 
+const HotelsForUsers = ({ classes, ...props }) => {
+  const [currentId, setCurrentId] = useState(0);
 
-    paper: { 
-        margin: theme.spacing(2), 
-        padding: theme.spacing(2), 
-    } 
-}) 
+  useEffect(() => {
+    props.fetchAllHotels();
+  }, []); 
 
-const HotelsForUsers = ({ classes, ...props }) => { 
-    const [currentId, setCurrentId] = useState(0) 
+  return (
+    <Paper className={classes.paper} elevation={4}>
+      <Grid container>
+        <h1 className="result">Here's what we can offer you:</h1>
+      </Grid>
+      <Grid container>
+        <Grid item xs={7}>
+          <HotelsTable userId={currentId => setCurrentId(currentId)} />
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};
 
-    useEffect(() => { 
-        props.fetchAllHotels() 
-    }, [props]) 
+const mapStateToProps = (state) => ({
+  hotelList: state.hotel.list,
+});
 
-    return ( 
-        <Paper className={classes.paper} elevation={5}> 
-             <Grid container>  
-                 <Grid item xs={12}> 
-                     <TableContainer> 
-                         <Table> 
-                             <TableBody> 
-                                 { 
-                                     props.hotelList.map((record, index) => { 
-                                         return (<TableRow key={index} hover> 
-                                         <TableCell>
-                                             <Grid container className='name'>{record.name}</Grid> 
-                                             <Grid container>{record.starsCount}</Grid> 
-                                             <Grid container>{record.country}</Grid> 
-                                             <Grid container>{record.city}</Grid> 
-                                             <Grid container>{record.priceFrom}</Grid> 
-                                             <Grid container>{record.priceTo}</Grid> 
-                                             <Grid container>{record.address}</Grid> 
-                                             </TableCell>
-                                        </TableRow>) 
-                                     }) 
-                                 } 
-                             </TableBody> 
-                         </Table> 
-                    </TableContainer> 
-                 </Grid> 
-             </Grid> 
-         </Paper> 
-     );  }
+const mapActionToProps = {
+  fetchAllHotels: actions.fetchAll,
+};
 
-const mapStateToProps = state => ({ 
-    hotelList: state.hotel.list 
-}) 
-
-const mapActionToProps = { 
-    fetchAllHotels: actions.fetchAll, 
-} 
-
-export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(HotelsForUsers)); 
+export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(HotelsForUsers))

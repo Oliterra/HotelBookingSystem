@@ -110,22 +110,14 @@ const HotelForm = ({ classes, ...props }) => {
                         onChange={handleInputChange} 
                         {...(errors.name && { error: true, helperText: errors.name })} 
                     />  
-                    <TextField 
-                        name="name" 
-                        variant="outlined" 
-                        label="Name" 
-                        value={values.name} 
-                        onChange={handleInputChange} 
-                        {...(errors.name && { error: true, helperText: errors.name })} 
-                    /> 
                     <FormControl variant="outlined" 
                         className={classes.formControl} 
                         {...(errors.starsCount && { error: true })} 
                     > 
                         <InputLabel ref={inputLabel}>Count of stars</InputLabel> 
                         <Select 
-                            name="starsCount" 
-                            value={values.starsCount} 
+                            name="starsNumber" 
+                            value={values.starsNumber} 
                             onChange={handleInputChange} 
                             labelWidth={labelWidth} 
                         > 
@@ -136,7 +128,7 @@ const HotelForm = ({ classes, ...props }) => {
                             <MenuItem value="4">4</MenuItem> 
                             <MenuItem value="5">5</MenuItem> 
                         </Select> 
-                        {errors.starsCount && <FormHelperText>{errors.starsCount}</FormHelperText>} 
+                        {errors.starsNumber && <FormHelperText>{errors.starsNumber}</FormHelperText>} 
                     </FormControl> 
                     <TextField 
                         name="country" 
@@ -155,17 +147,10 @@ const HotelForm = ({ classes, ...props }) => {
                         {...(errors.city && { error: true, helperText: errors.city })} 
                     /> 
                     <TextField 
-                        name="priceFrom" 
+                        name="minPriceForRoom" 
                         variant="outlined" 
-                        label="Price from" 
+                        label="Minimum price for room" 
                         value={values.priceFrom} 
-                        onChange={handleInputChange} 
-                    /> 
-                    <TextField 
-                        name="priceTo" 
-                        variant="outlined" 
-                        label="Price to" 
-                        value={values.priceTo} 
                         onChange={handleInputChange} 
                     /> 
                     <TextField 

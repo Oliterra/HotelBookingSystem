@@ -9,18 +9,18 @@ import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import HotelsForUsers from './components/HotelsForUsers';
 
 
-function HotelsAdminManagment() { 
+function App() { 
   return ( 
     <Provider store={store}> 
-      <ToastProvider autoDismiss={true}> 
-        <Container maxWidth="lg"> 
-          <HotelsForUsers /> 
-        </Container> 
-      </ToastProvider> 
-    </Provider> 
+    <ToastProvider autoDismiss={true}> 
+      <Container maxWidth="lg"> 
+        <HotelsForUsers /> 
+      </Container> 
+    </ToastProvider> 
+  </Provider> 
   ); 
 } 
 
-export default HotelsAdminManagment; 
+export default App; 
 
 
