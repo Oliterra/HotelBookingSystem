@@ -8,7 +8,6 @@ using AutoMapper;
 using Business.Interfaces;
 using Business.Models;
 using Business.ViewModels;
-using Business.ViewModels.RoomBooking;
 using Microsoft.Extensions.Logging;
 
 namespace WebAPI.Controllers
@@ -29,7 +28,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetHotelsByParameters(HotelSearchRequestModel searchModel)
+        public IActionResult Search(HotelSearchRequestModel searchModel)
         {
             if (!ModelState.IsValid)
             {

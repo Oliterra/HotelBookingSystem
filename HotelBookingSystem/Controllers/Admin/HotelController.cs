@@ -14,6 +14,7 @@ using WebAPI.Policy;
 
 namespace WebAPI.Controllers.Admin
 {
+    //[Authorize(Policy = Policies.SuperOnly)]
     [Route("api/[controller]")]
     [ApiController]
     public class HotelController : ControllerBase
@@ -21,24 +22,22 @@ namespace WebAPI.Controllers.Admin
         private readonly IHotelService _hotelService;
         private readonly IMapper _mapper;
 
-        public HotelController(IHotelService hotelService, IMapper mapper)
+        public HotelController(HotelService hotelService, IMapper mapper)
         {
             _hotelService = hotelService;
             _mapper = mapper;
         }
 
         [HttpGet]
+        [Route("getHotels")]
         public async Task<IActionResult> GetAllHotels()
         {
-            var hotels = await _hotelService.GetAllHotels();
-
-            return Ok(hotels
-                .Select(h => _mapper.Map<Hotel>(h))
-                .AsQueryable());
+            HotelModel hotel = await _hotelService.GetAllHotels();
+            return Ok(_mapper.Map<Hotel>(hotel));
         }
 
         [HttpGet]
-        [Route("getHotel")]
+        [Route("getHotel/{id}")]
         public async Task<IActionResult> GetHotel([FromRoute] Guid id)
         {
             HotelModel hotel = await _hotelService.GetHotel(id);

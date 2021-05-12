@@ -29,9 +29,14 @@ namespace Business.Services
         {
             IQueryable<HotelEntity> hotelEntities = null;
 
+            if (!string.IsNullOrEmpty(searchModel.Name))
+            {
+                hotelEntities = _hotelsSearchRepository.GetHotels().Where(h => h.Name.Equals(searchModel.Name));
+            }
+
             if (!string.IsNullOrEmpty(searchModel.Country))
             {
-                hotelEntities = _hotelsSearchRepository.GetHotels().Where(h => h.Country.Equals(searchModel.Country));
+                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.Country.Equals(searchModel.Country));
             }
 
             if (!string.IsNullOrEmpty(searchModel.City))
@@ -39,9 +44,19 @@ namespace Business.Services
                 hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.City.Equals(searchModel.City));
             }
 
-            if (!string.IsNullOrEmpty(searchModel.MinRoomPrice.ToString()))
+            if (searchModel.StarsCount != 0)
             {
-                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels().Where(h => h.MinRoomPrice >= searchModel.MinRoomPrice));
+                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels()).Where(h => h.StarsCount >= searchModel.StarsCount).OrderBy(h => h.StarsCount);
+            }
+
+            if (searchModel.PriceFrom != 0)
+            {
+                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels().Where(h => h.PriceFrom >= searchModel.PriceFrom));
+            }
+
+            if (searchModel.PriceTo != 0)
+            {
+                hotelEntities = (hotelEntities ?? _hotelsSearchRepository.GetHotels().Where(h => h.PriceTo <= searchModel.PriceTo));
             }
 
             if (hotelEntities == null || !hotelEntities.Any())
@@ -49,9 +64,7 @@ namespace Business.Services
                 return new List<HotelModel>();
             }
 
-            return hotelEntities
-                .Select(h => _mapper.Map<HotelModel>(h))
-                .ToList();
+            return hotelEntities.Select(x => Mapper.Map<HotelEntity, HotelModel>(x)).ToList();
         }
     }
 }
