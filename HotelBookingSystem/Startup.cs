@@ -20,6 +20,8 @@ using React.AspNet;
 using Serilog;
 using System.Net;
 using System.Text;
+using Database.Interfaces;
+using Database.Repositories;
 using WebAPI.Services;
 using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 using TokenOptions = Business.ViewModels.Authorization.TokenOptions;
@@ -75,16 +77,15 @@ namespace WebAPI
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddReact();
-
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
 
             services.AddTransient<IEmailSender, EmailSender>();
-            //services.AddScoped<IEmailSender, EmailSender>();
-            //services.AddSingleton<IEmailSender, EmailSender>();
-            //services.TryAddSingleton<IEmailSender, EmailSender>();
 
-            //services.AddTransient<IPasswordValidator<ApplicationUser>, PasswordValidatorService>();
+            services.AddScoped<DbContext, HotelContext>();
+
+            services.AddScoped(typeof(IHotelSystemRepository<>), typeof(HotelSystemRepository<>));
+
+            services.AddScoped(typeof(IHotelService), typeof(HotelService));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<HotelContext>()
@@ -97,10 +98,16 @@ namespace WebAPI
             services.AddOptions();
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
+
+            services.AddCors();
         }
         
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

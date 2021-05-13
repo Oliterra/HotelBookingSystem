@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Interfaces;
@@ -56,4 +56,4 @@ namespace WebAPI.Controllers.Admin
             return NoContent();
         }
     }
-}*/
+}
