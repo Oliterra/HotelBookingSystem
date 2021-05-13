@@ -9,22 +9,20 @@ namespace Business.Models
 
         public string Name { get; set; }
 
-        public int StarsCount { get; set; }
+        public string Description { get; set; }
+
+        public int StarsNumber { get; set; }
 
         public string Country { get; set; }
 
         public string City { get; set; }
 
-        public int PriceFrom { get; set; }
-
-        public int PriceTo { get; set; }
-
         public string Address { get; set; }
+
+        public int MinRoomPrice { get; set; }
 
         public bool IsFavorite { get; set; }
 
         public bool IsFreeRooms { get; set; }
-
-        public HotelImageModel HotelImage { get; set; }
     }
 }

@@ -7,7 +7,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete"; 
 import { useToasts } from "react-toast-notifications"; 
 
-
 const styles = theme => ({ 
     root: { 
         "& .MuiTableCell-head": { 
@@ -49,11 +48,10 @@ const Hotels = ({ classes, ...props }) => {
                                     props.hotelList.map((record, index) => { 
                                         return (<TableRow key={index} hover> 
                                             <TableCell>{record.name}</TableCell> 
-                                            <TableCell>{record.starsCount}</TableCell> 
+                                            <TableCell>{record.starsNumber}</TableCell> 
                                             <TableCell>{record.country}</TableCell> 
                                             <TableCell>{record.city}</TableCell> 
-                                            <TableCell>{record.priceFrom}</TableCell> 
-                                            <TableCell>{record.priceTo}</TableCell> 
+                                            <TableCell>{record.minRoomPrice}</TableCell> 
                                             <TableCell>{record.address}</TableCell> 
                                             <TableCell> 
                                                 <ButtonGroup variant="text"> 
@@ -74,6 +72,7 @@ const Hotels = ({ classes, ...props }) => {
         </Paper> 
     ); 
 } 
+
 const mapStateToProps = state => ({ 
     hotelList: state.hotel.list 
 }) 

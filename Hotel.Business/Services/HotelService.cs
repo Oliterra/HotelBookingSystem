@@ -22,6 +22,15 @@ namespace Business.Services
             _mapper = mapper;
         }
 
+        public async Task<IQueryable<HotelModel>> GetAllHotels()
+        {
+            var hotels = await _hotelRepository.GetAll();
+
+            return hotels
+                .Select(h => _mapper.Map<HotelModel>(h))
+                .AsQueryable();
+        }
+
         public async Task AddHotel(HotelModel hotel)
         {
             await _hotelRepository.Create(_mapper.Map<HotelEntity>(hotel));
@@ -63,26 +72,17 @@ namespace Business.Services
             await _hotelRepository.Update(_mapper.Map<HotelEntity>(hotel));
         }
 
-        public async Task<HotelModel> GetAllHotels()
-        {
-            var getHotels = await _hotelRepository.GetAll();
-            HotelModel hotels = _mapper.Map<HotelModel>(getHotels);
-            return hotels;
-        }
-
         private HotelModel UpdateHotelOptions(HotelModel hotel, HotelModel updatedHotel)
         {
             hotel.Id = updatedHotel.Id;
             hotel.Name = updatedHotel.Name;
-            hotel.Address = updatedHotel.Address;
-            hotel.City = updatedHotel.City;
+            hotel.StarsNumber = updatedHotel.StarsNumber;
             hotel.Country = updatedHotel.Country;
-            hotel.HotelImage = updatedHotel.HotelImage;
+            hotel.City = updatedHotel.City;
+            hotel.Address = updatedHotel.Address;
+            hotel.MinRoomPrice = updatedHotel.MinRoomPrice;
             hotel.IsFavorite = updatedHotel.IsFavorite;
             hotel.IsFreeRooms = updatedHotel.IsFreeRooms;
-            hotel.PriceTo = updatedHotel.PriceTo;
-            hotel.PriceFrom = updatedHotel.PriceFrom;
-            hotel.StarsCount = updatedHotel.StarsCount;
             return hotel;
         }
     }

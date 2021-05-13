@@ -4,7 +4,7 @@ const baseUrl = "https://localhost:44333/api/"
 
 export default { 
 
-    hotel(url = baseUrl + 'test/') { 
+    hotel(url = baseUrl + 'hotel/') { 
 
         return { 
             fetchAll: () => axios.get(url), 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Models;
 using Business.ViewModels;
+using Business.ViewModels.RoomBooking;
 using Database.Entities;
 
 namespace WebAPI
@@ -9,11 +10,11 @@ namespace WebAPI
     {
         public MappingProfile()
         {
-            CreateMap<HotelModel, Hotel>();
+            CreateMap<HotelModel, Hotel>().ReverseMap();
 
-            CreateMap<HotelSearchRequestModel, HotelsSearchModel>();
+            CreateMap<HotelEntity, HotelModel>().ReverseMap();
 
-            CreateMap<HotelEntity, HotelModel>();
+            CreateMap<Hotel, HotelsSearchModel>().ReverseMap();
 
             CreateMap<RoomEntity, RoomModel>();
         }
