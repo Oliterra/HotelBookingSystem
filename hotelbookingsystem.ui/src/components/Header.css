@@ -1,0 +1,16 @@
+.header {
+    height: 100px;
+    background-color: rgb(17, 7, 22);
+    color: rgb(255, 238, 203);
+    text-align: center;
+}
+
+.header .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-family: cursive;
+    font-size: x-large;
+    margin-left: 18%;
+    letter-spacing:0.5rem;
+}
